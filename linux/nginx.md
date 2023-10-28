@@ -13,7 +13,3 @@ Install nginx
 yum install epel-release
 ```
 
-Output
-```sh
-
-```
