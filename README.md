@@ -1,1 +1,1 @@
-# Learning note for Linux, Containerization and coding
+# notes for Linux, Containerization and coding
