@@ -6,31 +6,28 @@ create a user `kun` with userid `1200` .
 adduser -u 1200 kun
 ```
 
-
 #### Create user with no interactive shell
 to create a user without interactive shell we use `adduser -s` to specify the shell to use.
 ```sh
 adduser kun -s /bin/nologin
 ```
 
-you can check by
+validate
 ```sh
 cat /etc/passwd | grep kun
 ```
 
-
 #### User without home
-create a user `adn` without home directory
+- create a user `adn` without home directory
 ```sh
 useradd -M adn
 ```
 `-M` tells the useradd to create no home directory
 
-check this by
+- validate
 ```sh
 cat /etc/passwd | grep adn
 ```
-
 
 #### Create a group
 create a group called `dev` .
@@ -38,6 +35,7 @@ create a group called `dev` .
 ```sh 
 addgroup dev
 ```
+
 add `kun` to the `dev` group.
 ```sh
 usermod kun -G dev
@@ -73,25 +71,24 @@ disable root login on ssh.
 3. restart ssh daemon `systemctl restart sshd` 
 
 #### Password-less SSH
-use keys for authentication.
-1. generate the needed keys. public and private keys.
+use certifications keys for authentication.
+- generate the needed keys. public and private keys.
 
 ```sh
 ssh-keygen
 ```
 
-2. copy public key generated to the host you want to login to.
+- copy public key generated to the host you want to login to.
 
 ```sh
 ssh-copy-id dere@kapp02
 ```
 
-3. now you try and login.
+- now you try and login.
 
 ```sh
 ssh dere@kapp02
 ```
-
 
 
 #### Access control list
