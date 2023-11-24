@@ -28,5 +28,17 @@ Under location tab, add below line
 proxy_pass http://72.16.238.16:5003
 ```
 
+test new config
+```sh
+nginx -t
+```
+
 Start the nginx service.
+```sh
+systemctl reload nginx
+```
+
 Check the web page by using curl command
+```sh
+curl http://72.16.238.16:5003
+```
