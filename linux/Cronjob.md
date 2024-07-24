@@ -1,14 +1,14 @@
-#### Cron job
+#### Users permission on cronjob
 Allow user `peter` to add, edit and update cron job
-1. create `/etc/cron.allow` file and add the user to allow.
-
+- create `/etc/cron.allow` file and add the user to allow.
+- add `peter`
 ```sh
 peter
 ```
 
 Deny user `mercy` to add, edit and update cron job
-2. create `cron.deny` on `/etc/cron.deny` 
-
+- create `cron.deny` on `/etc/cron.deny` 
+- add `mercy`
 ```sh
 mercy
 ```
