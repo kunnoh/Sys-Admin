@@ -29,5 +29,3 @@ check version
 ```sh
 ansible --version
 ```
-
-
