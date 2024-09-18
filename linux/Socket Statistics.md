@@ -30,4 +30,4 @@ Key uses of the `ss` command include:
 The `ss` command is part of the `iproute2` package, which is the successor to the `net-tools` package that included `netstat`. The `ss` command is considered faster and more efficient than `netstat` because it directly accesses information from the kernel.
 
 ## References
-- [ss](https://man7.org/linux/man-pages/man8/ss.8.html)
+- [socket statistics](https://man7.org/linux/man-pages/man8/ss.8.html)

@@ -75,7 +75,7 @@ use certifications keys for authentication.
 - generate the needed keys. public and private keys.
 
 ```sh
-ssh-keygen
+ssh-keygen -t rsa
 ```
 
 - copy public key generated to the host you want to login to.

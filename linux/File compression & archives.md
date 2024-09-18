@@ -1,3 +1,13 @@
+#### Check file sizes
+To check size of file or directory, use `du`.
+```sh
+du -sh text.txt
+```
+
+Check directory size recursively.
+```sh
+du -ah text/
+```
 #### Create archives
 `tar` (short for "tape archive") is a command-line utility in Linux and Unix-like operating systems used for creating, archiving, and managing collections of files and directories. It's a common tool for compressing and bundling multiple files into a single archive. Here's a brief explanation:
 
@@ -14,11 +24,60 @@
 ```sh
 tar -cvf archive.tar file1.txt file2.txt directory/
 ```
- 
-- Create tar file with name `kun.tar.gz`.
+
+
+#### Compression
+- Create tar file with name `kun.tar...`.
+
+**bzip2**
+Compress
+```sh
+tar -cjvf kun.tar.bz2 /data/kun/
+```
+
+Extract
+```sh
+tar -xjvf kun.tar.bz2
+```
+
+ Use `bzcat` to read the contents of a compressed `.bz2` file without extracting it.
+```sh
+bzcat kun.tar.bz2
+```
+
+
+**gzip**
+Compress
 ```sh
 tar -czvf kun.tar.gz /data/kun/
 ```
+
+Extract
+```sh
+tar -xzvf kun.tar.gz
+```
+
+ Use `zcat` to read the contents of a compressed `.gz` file without extracting it.
+```sh
+zcat kun.tar.gz
+```
+
+**xz**
+Compress
+```sh
+tar -cJvf kun.tar.xz /data/kun/
+```
+
+Extract
+```sh
+tar -xJvf kun.tar.xz
+```
+
+ Use `xzcat` to read the contents of a compressed `.xz` file without extracting it.
+```sh
+xzcat kun.tar.xz
+```
+
 
 ###### Viewing Archive Contents
 - You can list the contents of an archive without extracting them using the `-t` option:
