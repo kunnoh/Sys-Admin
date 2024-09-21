@@ -85,7 +85,7 @@ vim /etc/fstab
 /dev/sda1    /    ext4     defaults,relatime,error=panic    0    1 ~
 ```
 
-**Field**
+**Fields**
 Filesystem - such as /dev/sda to be mounted.
 Mountpoint - directory to be mounted on.
 Type - Example ext2, ext3, ext4.
@@ -148,11 +148,7 @@ pvcreate /dev/vdc
 
 Verify.
 ```sh
-pvs
-```
-or
-```sh
-pvdisplay
+pvdisplay or pvs
 ```
 
 **Create volume group**
@@ -165,6 +161,15 @@ Verify.
 vgdisplay
 ```
 
+Extend.
+```sh
+vgextend iko_vg /dev/vdb
+```
+
+Verify.
+```sh
+pvdisplay or pvs
+```
 
 **Create logical volume**
 ```sh
@@ -173,7 +178,7 @@ lvcreate -L 5G -n vol1 iko_vg
 
 Verify.
 ```sh
-lvdisplay
+lvdisplay or lvs
 ```
 
 Create filesystem.

@@ -3,6 +3,8 @@ Accept rule.
 ```sh
 iptables -A INPUT -p tcp -s 10.0.8.3 --dport 22 -j ACCEPT
 ```
+
+**Options**
 - -A: Add rule
 - -p: protocol
 - -s: source

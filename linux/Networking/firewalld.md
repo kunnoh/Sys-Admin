@@ -62,4 +62,6 @@ firewalld-cmd --zone=public --list-all
 firewalld-cmd --zone=public --list-ports
 ```
 
-NB: [[https://www.rootusers.com/how-to-use-firewalld-rich-rules-and-zones-for-filtering-and-nat/]]
+
+## Reference
+ 1. [FirewallD rootusers.com](https://www.rootusers.com/how-to-use-firewalld-rich-rules-and-zones-for-filtering-and-nat/)
