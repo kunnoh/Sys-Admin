@@ -42,5 +42,5 @@ timedatectl
 
 set new timezone
 ```sh
-timectl set-timezone Africa/Nairobi
+timedatectl set-timezone Africa/Nairobi
 ```
