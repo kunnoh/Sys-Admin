@@ -78,7 +78,7 @@ iptables -D INPUT 1
 Save rules permenently.
 - Debian:  
 ```sh
-iptables-save > /etc/iptables/fules.v4
+iptables-save | tee /etc/iptables/rules.v4
 ```  
 
 - RHEL:  
