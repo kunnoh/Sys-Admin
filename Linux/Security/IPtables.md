@@ -12,12 +12,23 @@ apt update && apt install iptables
 
 
 ## Rules  
+**OUTPUT**  
+OUTPUT rules govern traffic leaving the system.  
+Example:  
+```sh
+iptables -I OUTPUT <other options>
+```  
 **INPUT**  
 INPUT rules govern traffic coming into the system.  
 Example:  
 ```sh
 iptables -I INPUT <other options>
 ```  
+
+### Use case  
+Allow incoming traffic on ssh, http, https from any IP and Drop other traffic using policy.  
+Allow all outgoing traffic.  
+Allow localhost traffic.  
 
 Allow `ssh` from from certain ip.  
 ```sh
@@ -42,18 +53,10 @@ iptables -P OUTPUT ACCEPT
 - -I: Insert rule at the top of the INPUT chain.
 - -A: Append rule at the bottom of the INPUT chain.
 - -p: Protocol
+- -P: Policy
 - -s: Source IP
 - --dport: Destination port
-- -j: Action to take
-
-
-**OUTPUT**  
-OUTPUT rules govern traffic leaving the system.  
-Example:  
-```sh
-iptables -I OUTPUT <other options>
-```  
-
+- -j: Action to take  
 
 ### Check rules  
 Current `iptables` rules.  
@@ -65,7 +68,6 @@ iptables -L -v -n --line-numbers
 - -v: Verbose mode. show extra details like packet/byte counters & interface names.  
 - -n: Numeric output. Prevent DNS lookups for IP addresses.  
 - --line-numbers: Show line numbers. Useful for modifying and deleting specific rule.  
-
 
 ### Delete the rule.  
 ```sh
