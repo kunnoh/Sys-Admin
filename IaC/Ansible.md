@@ -1,33 +1,37 @@
-#### Installation
+## Installation
 
-check python version
+Check python version
 
 ```sh
 python --version
 ```
 
-pip version
+Pip version
 
 ```sh
 pip --version
 ```
 
-install ansible as python module
+Install ansible as python module
 
 ```sh
 python3 -m pip install --user ansible
 ```
 
-upgrading ansible
+Upgrading ansible
 
 ```sh
 python3 -m pip install --upgrade --user ansible
 ```
 
-check version
+Check version
 
 ```sh
 ansible --version
 ```
+
+## Reference
+1. [Ansible](https://www.redhat.com/en/ansible-collaborative/how-ansible-works)
+2. [Ansible installation](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)
 
 
