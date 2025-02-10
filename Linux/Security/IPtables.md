@@ -21,9 +21,23 @@ iptables -I INPUT <other options>
 
 Allow `ssh` from from certain ip.  
 ```sh
-iptables -I INPUT -p tcp -s 0.0.0.0/0 --dport 22 -j ACCEPT
-iptables -A INPUT -j DROP
-```
+iptables -I INPUT -p tcp -s <IP> --dport 22 -j ACCEPT
+```  
+Allow `http, https` from all IPs.  
+```sh
+iptables -A INPUT -p tcp --dport 80 -j ACCEPT && \
+iptables -A INPUT -p tcp --dport 443 -j ACCEPT
+```  
+Allow localhost traffic.  
+```sh
+iptables -A INPUT -i lo -j ACCEPT
+```  
+Drop all incoming. Allow all outgoing.  
+```sh
+iptables -P INPUT DROP && \
+iptables -P FORWARD DROP && \
+iptables -P OUTPUT ACCEPT
+```  
 *Options*:  
 - -I: Insert rule at the top of the INPUT chain.
 - -A: Append rule at the bottom of the INPUT chain.
@@ -41,7 +55,7 @@ iptables -I OUTPUT <other options>
 ```  
 
 
-### Current rules  
+### Check rules  
 Current `iptables` rules.  
 ```sh
 iptables -L -v -n --line-numbers
@@ -58,7 +72,7 @@ iptables -L -v -n --line-numbers
 iptables -D INPUT 1
 ```  
 *Options*:  
-- -D: delete rule  
+- -D: delete rule by number.  
 
 ### Persist rules.  
 Save rules permenently.
