@@ -2,14 +2,13 @@
 
 ## Introduction
 IPtables rules go into effect immediately after entering them.  
-    Don't run both `firewalld` at the same time.  
+Don't run `firewalld` and `iptables` simultaneously.  
 The order of rules matters.  
 
 ## Installation
 ```sh
 apt update && apt install iptables
 ```
-
 
 ## Rules  
 **OUTPUT**  
@@ -26,24 +25,29 @@ iptables -I INPUT <other options>
 ```  
 
 ### Use case  
-Allow incoming traffic on ssh, http, https from any IP and Drop other traffic using policy.  
+Allow incoming traffic on ssh from specific IP with rate limit, http, https from any IP and Drop other traffic using policy.  
 Allow all outgoing traffic.  
 Allow localhost traffic.  
+Allow ICMP for monitoring.  
 
-Allow `ssh` from from certain ip.  
+1. Allow `ssh` with rate limit from certain ip.  
 ```sh
-iptables -I INPUT -p tcp -s <IP> --dport 22 -j ACCEPT
+iptables -A INPUT -p tcp -s <IP> --dport 22 -m limit --limit 3/min --limit-burst 5 -j ACCEPT
 ```  
-Allow `http, https` from all IPs.  
+2. Allow `http` and `https` from all IPs.  
 ```sh
 iptables -A INPUT -p tcp --dport 80 -j ACCEPT && \
 iptables -A INPUT -p tcp --dport 443 -j ACCEPT
 ```  
-Allow localhost traffic.  
+3. Allow `ICMP` traffic from all IPs.  
+```sh
+iptables -A INPUT -p icmp --icmp-type echo-request -j ACCEPT
+```  
+4. Allow localhost traffic.  
 ```sh
 iptables -A INPUT -i lo -j ACCEPT
 ```  
-Drop all incoming. Allow all outgoing.  
+5. Drop all incoming traffic, allow all outgoing traffic using policy.  
 ```sh
 iptables -P INPUT DROP && \
 iptables -P FORWARD DROP && \
@@ -57,6 +61,21 @@ iptables -P OUTPUT ACCEPT
 - -s: Source IP
 - --dport: Destination port
 - -j: Action to take  
+
+**Single command:**
+```sh
+iptables -A INPUT -i lo -j ACCEPT && \
+iptables -A INPUT -p tcp --dport 80 -j ACCEPT && \
+iptables -A INPUT -p tcp --dport 443 -j ACCEPT && \
+iptables -A INPUT -p tcp --dport 22 -m state --state NEW,ESTABLISHED -j ACCEPT && \
+iptables -A OUTPUT -p tcp --sport 22 -m state --state ESTABLISHED -j ACCEPT && \
+iptables -A INPUT -p tcp --dport 22 -m limit --limit 3/min --limit-burst 5 -j ACCEPT && \
+iptables -A INPUT -p icmp --icmp-type echo-request -j ACCEPT && \
+iptables -P INPUT DROP && \
+iptables -P FORWARD DROP && \
+iptables -P OUTPUT ACCEPT && \
+iptables -A INPUT -j LOG --log-prefix "Dropped Packet: " --log-level 4
+```  
 
 ### Check rules  
 Current `iptables` rules.  
@@ -77,7 +96,7 @@ iptables -D INPUT 1
 - -D: delete rule by number.  
 
 ### Persist rules.  
-Save rules permenently.
+Save rules permanently.
 - Debian:  
 ```sh
 iptables-save | tee /etc/iptables/rules.v4
