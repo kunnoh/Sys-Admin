@@ -48,11 +48,11 @@ In cryptography, the **Elliptic Curve Digital Signature Algorithm (ECDSA)** offe
 **Generate ECDSA key pair using ssh-keygen**  
 Gnerate key pair.  
 ```sh
-ssh-keygen -t ed25519 -C "your key comment" -o /path/to/key/filename
+ssh-keygen -t ed25519 -C "your key comment" -f /path/to/key/filename
 ```  
 - `-t` - Specify algorithm to use when generating the key pair e.g `-t rsa`, `-t ecd25519`.    
 - `-C` - Add comment to the key pair.  
-- `-o` - Alias `--output`. Specify output folder and name.  
+- `-f` - Specify output folder and name.  
 
 
 ## Copy Public key to the server  
