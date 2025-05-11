@@ -1,3 +1,12 @@
+# Storage
+## Introduction
+- **lsblk** - List block devices. View all attached storage, partirions, mount points, sizes. 
+- **fdisk** - Partition disk(MBR-based). Create, delete and modify partitions using the **MBR(DOS)** partition table. Manage partitions on legacy or small (<2TB) disks.
+- **gdisk** - Partition disk(GPT). Partition large(>2TB) disks or UEFI systems.
+Use parted if you want a tool that supports both MBR and GPT interactively.
+
+
+## Mount
 Block devices - found under `/dev/` directory. Represent piece of hardware that can store data.
 Data is written or read in block state.
 To see block devices, use `lsblk`.
@@ -21,12 +30,18 @@ Major number:
 
 List disks.
 ```sh
-fdisk -l /dev/sda
+lsblk
 ```
+
+In this case USB drive is **/dev/sdb**
+```sh
+fdisk -l /dev/sdb
+```
+
 
 Create new partition.
 ```sh
-gdisk /dev/sda
+fdisk /dev/sdb
 ```
 
 type `n` to create new partition.
