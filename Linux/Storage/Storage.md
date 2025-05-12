@@ -1,5 +1,7 @@
 # Storage
-## Introduction
+## Introduction  
+Tools used:  
+- **dd** - Low-level disk copying tool.
 - **lsblk** - List block devices. View all attached storage, partirions, mount points, sizes. 
 - **fdisk** - Partition disk(MBR-based). Create, delete and modify partitions using the **MBR(DOS)** partition table. Manage partitions on legacy or small (<2TB) disks.
 - **gdisk** - Partition disk(GPT). Partition large(>2TB) disks or UEFI systems.
@@ -7,48 +9,47 @@ Use parted if you want a tool that supports both MBR and GPT interactively.
 
 
 ## Mount
-Block devices - found under `/dev/` directory. Represent piece of hardware that can store data.
-Data is written or read in block state.
-To see block devices, use `lsblk`.
+**Block devices** - found under `/dev/` directory. Represent piece of hardware that transfers data in blocks, typically disks (HDDs, SSDs, USB drives).  
+Data is written or read in block state.  
+To see block devices, use `lsblk`.  
 ```sh
 lsblk
 ```
 
-or `ls` on `/dev/` 
+or `ls` on `/dev/`.  
 ```sh
 ls -l /dev/ | grep "^b"
-```
+```  
+- `grep "^b"` - Filters for block devices only (lines starting with b).  
 
-Major number:
-- 1 - RAM
-- 3 - HARD DISK or CD ROM
-- 6 - PARALLEL PRINTERS
-- 8 - SCSI DISK
+Major/Minor numbers:  
+- 1 - RAM  
+- 3 - HARD DISK or CD ROM  
+- 6 - PARALLEL PRINTERS  
+- 8 - SCSI DISK  
 
-**Disk partitions**
-`fdisk` is used to list and partition disk.
-
-List disks.
+### Disk partitions  
+List disks and partitions.
 ```sh
 lsblk
 ```
 
-In this case USB drive is **/dev/sdb**
+In this case USB drive is **/dev/sdb**.  
 ```sh
-fdisk -l /dev/sdb
-```
+gdisk -l /dev/sdb
+```  
 
 
 Create new partition.
 ```sh
-fdisk /dev/sdb
+gidisk /dev/sdb
 ```
 
 type `n` to create new partition.
 type `w` to write new partition.
 
 
-**File systems**
+### File systems
 After creating partition, we must create file system. Mount file system to a directory.
 Extended filesystem available filesystem in linux:
 - ext2
@@ -70,7 +71,7 @@ Extended filesystem available filesystem in linux:
 	- use chksum for journal.
 	- backwards compatible.
 
-#### EXT4
+## Volume  
 Create volume.
 ```sh
 mkfs.ext4 /dev/sdb1
@@ -151,11 +152,11 @@ mount 10.0.3.1:/software/repos /mnt/software/repos
 
 
 
-### LVM
-Logical volume manager - enables grouping multiple physical volume into logical volume.
+### Logical Volume Manager(LVM)
+**Logical Volume Manager** - enables grouping multiple physical volume into logical volume.
 Allows the disks to be resized dynamically.
 
-**Create physical volume**
+#### Physical Volume  
 Use `pvcreate` to initialise a physical volume(PV) for use with lvm. Prepares storage device like a disk or partition to be used as part of a volume group(VG), which can then be dived into logical volumes(LVs).
 ```sh
 pvcreate /dev/vdc
@@ -166,7 +167,7 @@ Verify.
 pvdisplay or pvs
 ```
 
-**Create volume group**
+#### Volume Group  
 ```sh
 vgcreate iko_vg /dev/vdc
 ```
@@ -186,7 +187,7 @@ Verify.
 pvdisplay or pvs
 ```
 
-**Create logical volume**
+#### Logical Volume  
 ```sh
 lvcreate -L 5G -n vol1 iko_vg
 ```
@@ -202,7 +203,7 @@ mkfs.ext4 /dev/iko_vg/vol1
 ```
 
 
-**Resize**
+#### Resize  
 Check available space.
 ```sh
 vgs
@@ -249,3 +250,62 @@ Remove physical volume.
 ```sh
 pvremove /dev/vdc 
 ```
+
+## Storage capacity  
+`du` command is used to confirm storage space is accessible.  
+```sh
+du -h
+```
+- `-h`: show in human readable format.  
+
+
+## dd
+Best for cleaning disks before formatting and low level copying.  
+### Create bootable linux ISO
+Use **dd** tool to create bootable **linux.iso**.
+```sh
+sudo dd if=/home/dere/Desktop/kali-linux-2024.2-live-amd64.iso of=/dev/sdb bs=4M status=progress oflag=sync
+```
+- `dd`: Low-level disk copying tool.  
+- `if=/dev/zero`: Input file is a stream of zeroes.  
+- `of=/dev/sdb`: Output file is the entire disk /dev/sdb.  
+- `bs=1M`: Block size is 1 Megabyte (faster than default 512 bytes).  
+- `status=progress`: Shows real-time progress.  
+
+### Clean disk  
+#### HDD  
+```sh
+sudo dd if=/dev/zero of=/dev/sdb bs=1M status=progress
+```  
+- Writes: All zeroes (0x00).  
+- Speed: Fast (zeroes are easy to generate and write).  
+- Best for: Quick wipe before reuse, reinstallation, or repartitioning.  
+
+```sh
+sudo dd if=/dev/urandom of=/dev/sdb bs=1M status=progress
+```  
+Writes: Cryptographically random data.  
+Speed: Slow (generating randomness is CPU-intensive).  
+Security: More secure — harder to recover data.  
+Best for: Erasing sensitive data on HDDs (not SSDs), or preparing a drive for encryption.  
+
+This commands will completely wipe everything on **/dev/sdb**, including:  
+- Partitions  
+- Boot records  
+- File systems  
+
+#### SSD  
+Use **blkdiscard (TRIM-based)** instead — it's fast and SSD-safe:  
+```sh
+sudo blkdiscard /dev/sdb
+```  
+
+## Reference
+1. [Logical Volume Manager wiki](https://en.wikipedia.org/wiki/Logical_Volume_Manager_(Linux))
+2. [mount](https://man7.org/linux/man-pages/man8/mount.8.html)
+3. [LVM RedHat](https://www.redhat.com/en/blog/lvm-vs-partitioning)
+4. [blkdiscard](https://man7.org/linux/man-pages/man8/blkdiscard.8.html)
+[Master boot record(MBR) wiki](https://en.wikipedia.org/wiki/Master_boot_record)
+[GUID Partition Table (GPT) wiki](https://en.wikipedia.org/wiki/GUID_Partition_Table)
+[]()
+[]()
