@@ -1,3 +1,5 @@
+## Create services and application
+### Services
 **Tasks**
 1. Create systemd service to run `/usr/bin/project-iko.sh` in background. 
 2. Run python app after postgres DB. 
@@ -30,3 +32,8 @@ RestartSec=10
 WantedBy graphical.target
 ```
 
+
+### Create desktop application
+#### Introduction
+Install application manually and add it to desktop environment. 
+Example 
