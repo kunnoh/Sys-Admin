@@ -1,3 +1,11 @@
+# Arch Linux Packages
+
+## Introduction  
+Arch linux repo configuration.  
+**journalctl** is a command-line utility in Linux used to view and manage logs stored by the systemd systemd-journald service.  
+
+
+
 ## Fix arch linux plasma cannot login after update
 
 Reinstall the packages
@@ -12,3 +20,10 @@ sudo pacman -Syu --overwrite \* $(pacman -Qnq)
 
 3. `$(pacman -Qnq)`: This command gets a list of all the explicitly installed packages (i.e., packages that were manually installed and not installed as dependencies) in a format suitable for passing as arguments to another command.
 - Reinstalling all explicitly installed packages: $(pacman -Qnq) will list all explicitly installed packages, and pacman -Syu will reinstall them.
+
+## Reference  
+1. [Systemd wiki](https://en.wikipedia.org/wiki/Systemd)
+2. [Systemd timers ArchWiki](https://wiki.archlinux.org/title/Systemd/Timers)
+3. [Systemd service ArchWiki](https://wiki.archlinux.org/title/Systemd)
+4. [Arch Linux packages](https://archlinux.org/packages/)
+5. [Journal ArchWiki](https://wiki.archlinux.org/title/Systemd/Journal)

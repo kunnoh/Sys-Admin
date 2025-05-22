@@ -1,8 +1,13 @@
 # System Administration
 ## Introduction
-Linux skills.  
-## Contents
-1. [File operations](Linux/File%20Operations/README.md)
-2. [Accounts and permissions](Linux/Permissions%20and%20ACL/README.md)
-3. [Networking](Linux/Networking/README.md)
-4. 
+Linux skills learnt as a **Linux System Administrator**.  
+
+## Table of content
+1. [System configuration](./System%20Configuration/README.md)
+2. [Manipulating text](./Manipulating%20Text/README.md)
+3. [File operations](./File%20Operations/README.md)
+4. [Accounts and permissions](./Permissions%20and%20ACL/README.md)
+5. [Network operations](./Networking/README.md)
+6. [Processes](./Processes/README.md)
+7. [Shell and scripting](./Shell%20and%20Scripting/README.md)
+8. []()

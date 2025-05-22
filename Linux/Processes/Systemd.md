@@ -1,13 +1,45 @@
-# Arch Linux Packages
-
-## Introduction  
-Arch linux repo configuration.  
-**journalctl** is a command-line utility in Linux used to view and manage logs stored by the systemd systemd-journald service.  
+Basic building block for Linux system.  First daemon serves as the root of use space's process tree.   
 
 
-## Arch reflector
-### Run as systemd service  
-1. Create systemd service.  
+
+## EXAMPLE
+**Tasks 1**
+1. Create systemd service to run `/usr/bin/project-iko.sh` in background. 
+2. Run python app after postgres DB. 
+3. Use service account project_iko.
+4. Auto restart on failure.
+5. Restart interval 10 seconds.
+6. Log service events.
+7. Load when booting into graphical mode.
+
+
+Create service file.
+```sh
+vim /etc/systemd/system/project-iko.sh
+```
+
+Run python app.
+```conf
+[Unit]
+Description=python django app for project iko
+Documentation=https://doc.iko.com
+After=postgres.service
+
+[service]
+ExecStart=/usr/bin/project-iko.sh
+User=project-iko
+Restart=on-failure
+RestartSec=10
+
+[install]
+WantedBy graphical.target
+```
+
+
+**Task 2**
+Run reflector as a cronjob.  
+Create systemd service.  
+1. **Create systemd service**.  
     Create service file on `/etc/systemd/system/reflector-daily.service`.  
     
 ```conf
@@ -21,7 +53,7 @@ Type=oneshot
 ExecStart=/usr/bin/reflector --age 12 --protocol https --sort rate --fastest 5 --save /etc/pacman.d/mirrorlist >> /var/log/reflector.log 2>&1 # Save log to /var/log/reflector.log
 ```  
 
-2. Create the timer
+2. **Create  the timer**.  
 Create timer file on `/etc/systemd/system/reflector-daily.timer`.
 ```conf
 [Unit]
@@ -35,7 +67,7 @@ Persistent=true # ensures that the task runs if the machine was off during the s
 WantedBy=timers.target
 ```  
 
-3. Enable and start the timer.  
+3. **Enable and start the timer**.  
 ```sh
 sudo systemctl daemon-reexec
 sudo systemctl daemon-reload
@@ -70,9 +102,7 @@ cat /var/log/reflector.log
 ```
 
 
-## Reference  
-1. [Systemd wiki](https://en.wikipedia.org/wiki/Systemd)
-2. [Systemd timers ArchWiki](https://wiki.archlinux.org/title/Systemd/Timers)
-3. [Systemd service ArchWiki](https://wiki.archlinux.org/title/Systemd)
-4. [Arch Linux packages](https://archlinux.org/packages/)
-5. [Journal ArchWiki](https://wiki.archlinux.org/title/Systemd/Journal)
+## References
+1. [Systemd Wiki](https://en.wikipedia.org/wiki/Systemd)
+2. [Systemd.io](https://systemd.io/)
+3. []()
