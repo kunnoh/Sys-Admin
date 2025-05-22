@@ -8,8 +8,8 @@
 3. [CICD](./CICD/README.md)
 4. [Cloud Computing](./Cloud%20Computing/README.md)
 5. [Infrastructure As Code](./IaC/README.md)
-6. [Linux OSes](Linux%20Distros/README.md)
+6. [Linux OSes](./Linux%20Distros/README.md)
 
 ## Introduction
 
-*This document outlines what I learnt as a **system administrator**.*  
+*This document outlines what I am learning as a **system administrator**.*  

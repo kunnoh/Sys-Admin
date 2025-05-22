@@ -1,6 +1,6 @@
 # System Administration
 ## Introduction
-Linux skills learnt as a **Linux System Administrator**.  
+Common skills needed as a **System Administrator**.  
 
 ## Table of content
 1. [System configuration](./System%20Configuration/README.md)
