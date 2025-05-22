@@ -7,6 +7,6 @@
 6. [Daily Use OS](./Daily%20Use/)
 
 ## Introduction
-**"Learning never exhaust your mind" - Leonardo da Vinci**  
+``Learning never exhaust your mind`` - **Leonardo da Vinci**  
 
 This document outline what I learnt on **Linux**.  
