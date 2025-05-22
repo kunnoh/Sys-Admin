@@ -1,3 +1,7 @@
+# Linux System Administration
+
+**Learning never exhaust your mind** ~ *Leonardo da Vinci*  
+
 ## Contents
 1. [Linux](./Linux/README.md)
 2. [CICD](./CICD/README.md)
@@ -7,6 +11,5 @@
 6. [Daily Use OS](./Daily%20Use/)
 
 ## Introduction
-``Learning never exhaust your mind`` - **Leonardo da Vinci**  
 
 This document outline what I learnt on **Linux**.  
