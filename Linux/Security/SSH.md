@@ -13,7 +13,7 @@ In cryptography, the **Elliptic Curve Digital Signature Algorithm (ECDSA)** offe
 **ECDSA** is one of the more complex public key cryptography encryption algorithms.  
 
 
-**Generate ECDSA key pair uisng OpenSSL**  
+### Generate ECDSA key pair uisng OpenSSL  
 1. Generate private key.  
 
     ```sh
@@ -45,7 +45,7 @@ In cryptography, the **Elliptic Curve Digital Signature Algorithm (ECDSA)** offe
     chmod 400 /path/to/ecdsa_private_key_name.pem
     ```  
 
-**Generate ECDSA key pair using ssh-keygen**  
+### Generate ECDSA key pair using ssh-keygen
 Gnerate key pair.  
 ```sh
 ssh-keygen -t ed25519 -C "your key comment" -f /path/to/key/filename
@@ -55,7 +55,7 @@ ssh-keygen -t ed25519 -C "your key comment" -f /path/to/key/filename
 - `-f` - Specify output folder and name.  
 
 
-## Copy Public key to the server  
+### Copy Public key to the server  
 **Automatically**  
 Use `ssh-copy-id` to copy the public key. This will ask for password being used currently.  
 ```sh
@@ -77,40 +77,63 @@ mkdir ~/.ssh && chmod 600 -R ~/.ssh/
 
 
 ## SSH configurations and hardening  
-1. Ensure the server allows **ECDSA** public key authentication. Check the `/etc/ssh/sshd_config` file on the server:
-```sh
-sudo vim /etc/ssh/sshd_config
-```  
+**Config files:**
+- `etc/ssh/sshd_config` - SSH srver. How others connect to you.
+- `etc/ssh/ssh_config`  - SSH client. How you connect to others.
 
-Ensure this line is available to allow login using publickey.  
 
-```conf
-PubkeyAuthentication yes
-```  
-
-2. Complete `sshd_config` file with ssh hardening.  
+1. Complete `sshd_config` file with ssh hardening.  
 ```conf
 Include /etc/ssh/sshd_config.d/*.conf
-KbdInteractiveAuthentication no
-UsePAM yes
-PrintMotd no
-AcceptEnv LANG LC_*
-Subsystem       sftp    /usr/lib/openssh/sftp-server
-ChallengeResponseAuthentication no
 
-PubkeyAuthentication yes         # Allow public key authentication
-PasswordAuthentication no        # Disable password-based authentication
-PermitRootLogin no               # Disable root login
-PermitEmptyPasswords no          # Prevent empty password logins
-X11Forwarding no                 # Disable X11 forwarding unless explicitly needed
-AllowTcpForwarding no            # Disable TCP forwarding unless explicitly needed
-MaxAuthTries 3                   # Limit the number of failed authentication attempts
-PermitUserEnvironment no         # Disable reading user environment files
-ClientAliveInterval 300          # Disconnect idle clients after 5 minutes
-ClientAliveCountMax 0            # Terminate connections after the first interval
-AllowUsers <youruser>            # Allow specific users
-LogLevel VERBOSE                 # Increase logging for security auditing
-Banner /etc/issue.net            # Display a custom banner i.e for legal notices
+Port 22
+AddressFamily any
+ListenAddress 0.0.0.0
+ListenAddress ::
+
+UsePAM yes # Needed for advanced features like user resource limits, 2FA or sessions limits, and system policies.
+PrintMotd no # Message of the Day
+AcceptEnv LANG LC_* # Send locale variables
+Subsystem       sftp    /usr/lib/openssh/sftp-server # Path to the SFTP (SSH File Transfer Protocol) server binary
+
+# Authentication
+PubkeyAuthentication yes
+PasswordAuthentication no
+PermitRootLogin prohibit-password
+PermitEmptyPasswords no
+LoginGraceTime 30
+MaxAuthTries 3
+MaxSessions 4
+AuthorizedKeysFile .ssh/authorized_keys
+KbdInteractiveAuthentication no # Disables keyboard-interactive auth. Reduce brute-force or 2FA bypass vectors.
+ChallengeResponseAuthentication no # Challenge-response authentication (used for one-time passwords or legacy systems). Often paired with UsePAM yes to manage authentication
+IgnoreRhosts yes # Don't read the user's ~/.rhosts and ~/.shosts files
+
+# Kerberos options
+#KerberosAuthentication no
+#KerberosOrLocalPasswd yes
+#KerberosTicketCleanup yes
+#KerberosGetAFSToken no
+
+# GSSAPI options
+#GSSAPIAuthentication no
+#GSSAPICleanupCredentials yes
+#GSSAPIStrictAcceptorCheck yes
+#GSSAPIKeyExchange no
+
+X11Forwarding no
+AllowTcpForwarding no
+PermitUserEnvironment no
+ClientAliveInterval 60
+ClientAliveCountMax 2
+AllowUsers <youruser>
+
+# Logging
+LogLevel VERBOSE
+# SyslogFacility AUTH
+
+Banner /etc/issue.net # Display a custom banner i.e for legal notices
+Compression yes # Improve speed on slow links
 ```
 
 
