@@ -1,37 +1,15 @@
 ## User accounts
-#### Create a user
-create a user `kun` with userid `1200` .
-
+**Create a user**
+create a user.
 ```sh
 adduser -u 1200 kun
 ```
+Options:
+- `-s` - user without interactive shell
+- `-m` - user without home directory
+- `-u` - specify user id
 
-#### Create user with no interactive shell
-to create a user without interactive shell we use `adduser -s` to specify the shell to use.
-```sh
-adduser kun -s /bin/nologin
-```
-
-validate
-```sh
-cat /etc/passwd | grep kun
-```
-
-#### User without home
-- create a user `adn` without home directory
-```sh
-useradd -M adn
-```
-`-M` tells the useradd to create no home directory
-
-- validate
-```sh
-cat /etc/passwd | grep adn
-```
-
-#### Create a group
-create a group called `dev` .
-
+**Create a group.**
 ```sh 
 addgroup dev
 ```
@@ -40,9 +18,9 @@ add `kun` to the `dev` group.
 ```sh
 usermod kun -G dev
 ```
-#### Create user with expiry
-create a user with name `alvin` which will be assisting kun. The user account should expire on `2023-06-22` .
 
+**Create user with expiry**
+create a user the user account should expire on `2023-06-22` .
 ```sh 
 adduser alvin -e 2023-06-22
 ```

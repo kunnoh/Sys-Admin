@@ -92,16 +92,16 @@ ListenAddress 0.0.0.0
 ListenAddress ::
 
 UsePAM yes # Needed for advanced features like user resource limits, 2FA or sessions limits, and system policies.
-PrintMotd no # Message of the Day
+PrintMotd no
 AcceptEnv LANG LC_* # Send locale variables
-Subsystem       sftp    /usr/lib/openssh/sftp-server # Path to the SFTP (SSH File Transfer Protocol) server binary
+Subsystem       sftp    /usr/lib/openssh/sftp-server
 
 # Authentication
 PubkeyAuthentication yes
 PasswordAuthentication no
 PermitRootLogin prohibit-password
 PermitEmptyPasswords no
-LoginGraceTime 30
+LoginGraceTime 320
 MaxAuthTries 3
 MaxSessions 4
 AuthorizedKeysFile .ssh/authorized_keys
@@ -116,7 +116,7 @@ IgnoreRhosts yes # Don't read the user's ~/.rhosts and ~/.shosts files
 #KerberosGetAFSToken no
 
 # GSSAPI options
-#GSSAPIAuthentication no
+GSSAPIAuthentication no
 #GSSAPICleanupCredentials yes
 #GSSAPIStrictAcceptorCheck yes
 #GSSAPIKeyExchange no
@@ -124,7 +124,7 @@ IgnoreRhosts yes # Don't read the user's ~/.rhosts and ~/.shosts files
 X11Forwarding no
 AllowTcpForwarding no
 PermitUserEnvironment no
-ClientAliveInterval 60
+ClientAliveInterval 300
 ClientAliveCountMax 2
 AllowUsers <youruser>
 
