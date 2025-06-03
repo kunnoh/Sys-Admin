@@ -94,3 +94,4 @@ The -b or --remove-all option can be used to remove all access control entri
 setfacl -b /var/www/html
 ```
 
+echo "$USER ALL=(ALL:ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/$USER

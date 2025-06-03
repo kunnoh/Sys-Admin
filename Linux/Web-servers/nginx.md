@@ -26,6 +26,10 @@ sudo apt update
 sudo apt install nginx
 ```
 
+5. Enable nginx. Auto restart on boot.
+```sh
+systemctl enable nginx
+```
 
 ## Reference
 1. [Nginx docs](https://nginx.org/en/docs/)
