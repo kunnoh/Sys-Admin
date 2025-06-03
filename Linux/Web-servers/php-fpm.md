@@ -1,4 +1,4 @@
-# PHP-FPM
+# PHP-FPM MariaDB Wordpress
 ## Introduction
 
 ## Installation
@@ -33,7 +33,7 @@ listen = /run/php/php8.2-fpm.sock
 
 2. Restart the PHP-FPM service to apply your configuration changes.
 ```sh
-systemctl restart php8.2-fpm
+systemctl restart php8.2-fpm.service
 ```
 
 ## Reference
@@ -42,3 +42,48 @@ systemctl restart php8.2-fpm
 2. []()
 
 sudo systemctl status php8.2-fpm
+
+
+---
+# MariaDB
+## Introduction
+
+## Installation
+```sh
+apt install mariadb-server
+```
+
+Secure installation.
+```sh
+mysql_secure_installation
+```
+
+Create database and user.
+```sql
+CREATE DATABASE mbakapower;
+CREATE USER 'wp_user'@'%' IDENTIFIED BY 'j7wJZmLWyebzCLZFp9qx';
+GRANT ALL PRIVILEGES ON mbakapower.* TO 'wp_user'@'%';
+FLUSH PRIVILEGES;
+```
+
+
+---
+# WordPress
+
+## Introduction
+
+## Installation
+Download wordpress.
+```sh
+wget https://wordpress.org/latest.zip
+```
+
+Grab a fresh set of salts from WordPress.
+```sh
+curl -s https://api.wordpress.org/secret-key/1.1/salt/
+```
+
+
+
+## Reference
+1. [Wordpress docs](https://developer.wordpress.org/advanced-administration/before-install/howto-install/)
