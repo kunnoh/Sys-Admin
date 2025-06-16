@@ -25,11 +25,12 @@ Breakdown:
 - `-v` invert match, i.e., exclude lines that match the pattern.
 - `-E` use extended regex.
 - `'^\s*#|^\s*$'` regex pattern that matches:
-        - `^\s*#`: lines that start with optional whitespace and then a # (comment lines).
-        - `^\s*$`: lines that are completely empty or just whitespace.
+    - `^\s*#`: lines that start with optional whitespace and then a # (comment lines).
+    - `^\s*$`: lines that are completely empty or just whitespace.  
+
 So this part removes:
-    - All comments.
-    - All blank lines.
+- All comments starting with '#'.
+- All blank lines.
 
 
 ## Referances
