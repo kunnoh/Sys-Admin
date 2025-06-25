@@ -86,4 +86,5 @@ curl -s https://api.wordpress.org/secret-key/1.1/salt/
 
 
 ## Reference
+1. [MariaDB docs](https://mariadb.org/documentation/#getting-started)
 1. [Wordpress docs](https://developer.wordpress.org/advanced-administration/before-install/howto-install/)
