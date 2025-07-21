@@ -82,6 +82,16 @@ mkdir ~/.ssh && chmod 600 -R ~/.ssh/
 - `etc/ssh/ssh_config`  - SSH client. How you connect to others.
 
 
+### ssh_config
+```sh
+Host <host>
+HostName <hostname/ip addr>
+Port <ssh port>
+User <server user>
+IdentityFile <private key file>
+```
+
+### sshd_config
 1. Complete `sshd_config` file with ssh hardening.  
 ```conf
 Include /etc/ssh/sshd_config.d/*.conf
