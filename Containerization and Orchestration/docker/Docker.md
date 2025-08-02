@@ -11,7 +11,6 @@ curl -L "[https://github.com/docker/compose/releases/download/2.22.0/docker-comp
 ```
 
 
-
 #### Docker copy files
 copy an encrypted file `/tmp/kunta.txt.gpg` from docker host to `ubuntu_latest` container (running on same server) in `/tmp/` location. Please do not try to modify this file in any way.
 
@@ -34,9 +33,14 @@ There is a static website running within a container named `kunta`, this contain
 
 
 #### Docker cleanup  
-Docker system cleanup:
+##### Docker system cleanup:
+Check the disk space used by the Docker daemon.   
 ```sh
 docker system df
+```
+
+Clean up unused docker objects.   
+```sh
 docker system prune -a
 ```
 
@@ -44,3 +48,8 @@ Docker volume cleanup:
 ```sh
 docker volume prune -af
 ```
+
+
+## Reference
+1. [Docker docs]()
+[]()

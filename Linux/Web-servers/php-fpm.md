@@ -5,8 +5,8 @@
 **Debian**
 1. Update system and install **php-fpm**.
 ```sh
-apt update
-apt upgrade -y
+apt update && \
+apt upgrade -y && \
 apt install php-fpm
 ```
 
