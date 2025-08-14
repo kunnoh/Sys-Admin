@@ -107,6 +107,25 @@ iptables-save | tee /etc/iptables/rules.v4
 service iptables save
 ```  
 
+
+
+
+We have one of our websites up and running on our Nautilus infrastructure in Stratos DC. Our security team has raised a concern that right now Apache’s port i.e 8087 is open for all since there is no firewall installed on these hosts. So we have decided to add some security layer for these hosts and after discussions and recommendations we have come up with the following requirements:
+
+
+1. Install iptables and all its dependencies on each app host.
+
+2. Block incoming port 8087 on all apps for everyone except for LBR host.
+
+3. Make sure the rules remain, even after system reboot.
+
+```sh
+sudo iptables -I INPUT -p tcp -m tcp --dport 8081 -j ACCEPT  && sudo iptables-save > /etc/sysconfig/iptables &&  cat /etc/sysconfig/iptables
+sudo iptables -I INPUT -p tcp -m tcp --dport 3002 -s 172.16.238.14 -j ACCEPT
+sudo iptables -A INPUT -p tcp --dport 3002 -j DROP
+sudo iptables -R INPUT 5 -p icmp -j REJECT
+```
+
 ## Reference
 1. [Redhat IPtables](https://www.redhat.com/en/blog/iptables)
 2. [Controlling IP sets using IPtables](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-setting_and_controlling_ip_sets_using_iptables#sec-Setting_and_Controlling_IP_sets_using_iptables)
