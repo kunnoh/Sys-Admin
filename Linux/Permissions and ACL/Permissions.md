@@ -20,3 +20,5 @@ Set `suid`.
 chmod 4664 sfile
 ```
 - 4 - represents suid number.
+
+chattr
