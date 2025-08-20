@@ -14,7 +14,7 @@ Change `/etc/httpd/conf/httpd.conf` file and edit listen to port `8088`.
 ```conf
 ServerRoot "/etc/httpd"
 
-Listen 8088
+Listen 5001
 
 Include conf.modules.d/*.conf
 
@@ -40,6 +40,16 @@ DocumentRoot "/var/www/html"
 <Directory "/var/www/html">
     Options Indexes FollowSymLinks
     AllowOverride None
+    Require all granted
+</Directory>
+
+Alias /blog/ "/var/www/html/blog/"
+<Directory "/var/www/html/blog/">
+    Require all granted
+</Directory>
+
+Alias /games/ "/var/www/html/games/"
+<Directory "/var/www/html/games/">
     Require all granted
 </Directory>
 
