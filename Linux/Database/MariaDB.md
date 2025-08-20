@@ -15,7 +15,7 @@ sudo systemctl start mariadb && \
 sudo systemctl status  mariadb
 ```
 
-For security, run security script that comes pre-installed with **MariaDB**.  
+For security, run security script that comes pre-installed with **MariaDB** to initialize.  
 ```sh
 sudo mysql_secure_installation
 ```
@@ -34,18 +34,18 @@ SHOW DATABASES;
 ## Configure
 Create database.  
 ```sh
-CREATE DATABASE kodekloud_db9;
+CREATE DATABASE kodekloud_db2;
 ```
 
 Create user and grant database privileges to the user.  
 ```sh
-GRANT ALL ON kodekloud_db9.* TO 'kodekloud_joy'@'localhost' IDENTIFIED BY 'B4zNgHA7Ya' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON kodekloud_db2.* TO 'kodekloud_roy'@'%' IDENTIFIED BY 'dCV3szSGNA';
 FLUSH PRIVILEGES;
 ```
 
 Verify by connecting to **MariaDB** using the new user.  
 ```sh
-sudo mariadb -u kodekloud_joy -p
+sudo mariadb -u kodekloud_roy -p
 ```
 
 Show databases.  
