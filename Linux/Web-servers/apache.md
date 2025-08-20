@@ -379,7 +379,7 @@ FileETag None
     RequestReadTimeout header=20-40,MinRate=500 body=20,MinRate=500
 </IfModule>
 
-# SSL/TLS Configuration (if SSL module is available)
+# SSL/TLS Configuration
 <IfModule ssl_module>
     # SSL Engine off by default, enable when you have certificates
     # SSLEngine on
