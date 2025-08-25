@@ -1,7 +1,68 @@
-# PHP-FPM MariaDB Wordpress
+# PHP-FPM Nginx
 ## Introduction
+Run PHP-fpm using unix socket on as an upsstream server on nginx.
 
-## Installation
+## Install PHP-FPM
+### RHEL
+#### Install EPEL Repository
+```sh
+sudo dnf install epel-release -y
+```
+
+#### Install Remi Repository
+The Remi repository is a third-party software repository maintained by Remi Collet, a dedicated contributor to the RPM ecosystem.  
+```sh
+sudo dnf install https://rpms.remirepo.net/enterprise/remi-release-9.rpm -y
+```
+
+**Enable Remi Repository**
+```sh
+sudo dnf module reset php && \
+sudo dnf module enable php:remi-8.3 -y
+```
+
+#### Install PHP-FPM 8.3
+```sh
+sudo dnf install php php-cli php-fpm php-mysqlnd php-xml php-mbstring php-json php-zip -y
+```
+
+##### Run as Unix Socket
+Modify `/etc/php-fpm.d/www.conf`.  
+```conf
+Listen = /var/run/php-fpm/default.sock
+```
+
+
+### Nginx.  
+```sh
+sudo dnf update -y && \
+sudo dnf install nginx
+```
+
+Add php-fpm as upstream server.  
+```conf
+        location ~ \.php$ {                                                          
+          try_files $uri = 404;                                                      
+
+          include fastcgi_params;                                                     
+
+          fastcgi_pass  127.0.0.1:9000;                                              
+
+          fastcgi_index index.php;                                      
+
+          fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;        
+
+         }                                                                
+    location / {
+        index  index.php index.html index.htm;                                       
+    } 
+```
+
+```sh
+sudo grep -v '^;' /etc/php-fpm.d/www.conf | grep -v '^$'
+```
+
+
 **Debian**
 1. Update system and install **php-fpm**.
 ```sh
@@ -87,4 +148,6 @@ curl -s https://api.wordpress.org/secret-key/1.1/salt/
 
 ## Reference
 1. [MariaDB docs](https://mariadb.org/documentation/#getting-started)
-1. [Wordpress docs](https://developer.wordpress.org/advanced-administration/before-install/howto-install/)
+2. [Wordpress docs](https://developer.wordpress.org/advanced-administration/before-install/howto-install/)
+3. [PHP-FPM RHEL](https://infotechys.com/install-php-8-3-on-rhel-9-centos-9/)
+[]()
