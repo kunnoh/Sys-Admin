@@ -1,9 +1,4 @@
-KEYSTATIC_GITHUB_CLIENT_ID=Iv23liF2vqvT7uYuWz59
-KEYSTATIC_GITHUB_CLIENT_SECRET=b4f82c126a45e0c1ff0891d5c86fbb420ab5d683
-KEYSTATIC_SECRET=355209e1403cdff7dcb785611369e28b659d14a88c7d2768f7735b7d8b1608c0f33f9796b355fab3
-PUBLIC_KEYSTATIC_GITHUB_APP_SLUG=afriqsiliconltd-website-keystatic
-
-
+# Terraform
 The production support team of xFusionCorp Industries is working on developing some bash scripts to automate different day to day tasks. One is to create a bash script for taking websites backup. They have a static website running on App Server 1 in Stratos Datacenter, and they need to create a bash script named blog_backup.sh which should accomplish the following tasks. (Also remember to place the script under /scripts directory on App Server 1).
 
 
