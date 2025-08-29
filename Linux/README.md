@@ -10,4 +10,5 @@ Common skills needed as a **System Administrator**.
 5. [Network operations](./Networking/README.md)
 6. [Processes](./Processes/README.md)
 7. [Shell and scripting](./Shell%20and%20Scripting/README.md)
-8. [Database](./Database/)
+8. [Database](./Database/README.md)
+9. [Security](./Security/README.md)
