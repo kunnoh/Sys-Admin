@@ -2,15 +2,40 @@
 
 ## Introduction
 IPtables rules go into effect immediately after entering them.  
-Don't run `firewalld` and `iptables` simultaneously.  
+Don't run **FirewallD** and **IPtables** simultaneously.  
 The order of rules matters.  
 
 ## Installation
+Update and install **IPtables**.  
 ```sh
-apt update && apt install iptables
+sudo apt update && sudo apt install iptables
 ```
 
 ## Rules  
+**Basic formula for iptables (and nftables) is**:  
+```sh
+iptables -I <chain> 
+[ -s <source ip> / -i <input ethernet interface> ] 
+[ -d <destination ip> / -o <output ethernet interface> ] 
+[ -p tcp / udp / icmp --dport / --sport <port> ] 
+-j ACCEPT / DENY / DROP
+```
+Accept is obvious, deny is “return message immediately saying not allowed” and drop is “silently drop packets, pretending there’s no service running on that port.”
+
+
+**Rules to know:**  
+```sh
+iptables -L -n -v --line-number
+iptables -A <args> # append at the end of a chain, like -A INPUT
+iptables -I <args> # insert at the top of a chain, like -I INPUT
+iptables -I 4 # insert at line 4
+iptables -D <args> # delete rule
+iptables -D 4 # delete rule 4
+iptables-save > /a/file
+iptables-restore /a/file
+iptables -I FORWARD -s <source> -d <destination> -m state --state RELATED,ESTABLISHED -j ACCEPT # mostly used for routing, but might have some uses if you block all input to a server; what this means is basically "allow connections that were established from destination initially to come in from a source which normally gets blocked by a deny-all rule"
+```
+
 **OUTPUT**  
 OUTPUT rules govern traffic leaving the system.  
 Example:  
@@ -129,3 +154,4 @@ sudo iptables -R INPUT 5 -p icmp -j REJECT
 ## Reference
 1. [Redhat IPtables](https://www.redhat.com/en/blog/iptables)
 2. [Controlling IP sets using IPtables](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/7/html/security_guide/sec-setting_and_controlling_ip_sets_using_iptables#sec-Setting_and_Controlling_IP_sets_using_iptables)
+3. [Learn Linux](https://community.learnlinux.tv/t/ufw-or-firewalld/3311/6)
