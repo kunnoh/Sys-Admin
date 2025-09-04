@@ -103,7 +103,7 @@ sudo firewall-cmd --permanent --zone=public --remove-service={http,https}
 # by port
 sudo firewall-cmd --permanent --zone=public --remove-port={80/tcp,443/tcp}
 
-# Restart FirewallD
+# Restart
 sudo systemctl restart firewalld
 ```
 
@@ -119,5 +119,4 @@ sudo systemctl restart docker
 ## Reference
 1. [FirewallD](https://firewalld.org/)
 2. [FirewallD rootusers.com](https://www.rootusers.com/how-to-use-firewalld-rich-rules-and-zones-for-filtering-and-nat/)
-2. [FirewallD](https://firewalld.org/)
 3. [Docker IPtables](https://docs.docker.com/engine/network/packet-filtering-firewalls/)
