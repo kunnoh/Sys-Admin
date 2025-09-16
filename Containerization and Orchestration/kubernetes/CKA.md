@@ -1,6 +1,0 @@
-## Install kubernetes components
-
-
-
-
-

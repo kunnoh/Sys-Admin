@@ -1,6 +1,7 @@
-# Wireguard Debian 12
+# Wireguard
 
-## Inroduction
+## Introduction
+Install and configure wiregiard on **Debian 12**.  
 
 **Enable ipv4 packet forwarding**
 On `/etc/sysctl.conf`,
@@ -16,23 +17,24 @@ Check current settings.
 sysctl -a
 ```
 
-## Install and configure wireguard.
-Update system.
+## Install
+Update system and install **WireGuard**.
 ```sh
 apt update && apt upgrade -y && apt install wireguard
 ```
 
+## Configure
 Generate keys both on server and client.
 ```sh
 wg genkey | tee privatekey | wg pubkey > publickey
 ```
 
-Create configuration file on the server.
+Find network interface name.
 ```sh
-sudo vim /etc/wireguard/wg0.conf
+ip -o -4 route show to default | awk '{print $5}'
 ```
 
-Add.
+Create configuration file on the server on `/etc/wireguard/wg0.conf`. Add:  
 ```conf
 [Interface]
 Address = 10.0.0.1/28
@@ -43,11 +45,6 @@ SaveConfig = true
 
 PostUp = iptables -A FORWARD -i wg0 -j ACCEPT; iptables -t nat -A POSTROUTING -o enX0 -j MASQUERADE;
 PostDown = iptables -D FORWARD -i wg0 -j ACCEPT; iptables -t nat -D POSTROUTING -o enX0 -j MASQUERADE;
-```
-
-- Find network interface name.
-```sh
-ip -o -4 route show to default | awk '{print $5}'
 ```
 
 Change file permission for `/etc/wireguard`.
