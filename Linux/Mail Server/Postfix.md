@@ -13,16 +13,16 @@ sudo dnf install postfix dovecot -y
 ### Mail User
 Add user.  
 ```sh
-sudo useradd -m -d /home/mark -s /bin/bash mark
+sudo useradd -m -d /home/yousuf -s /bin/bash yousuf
 ```
 Add password.  
 ```sh
-sudo passwd mark
+sudo passwd yousuf
 ```
 
 Verify.  
 ```sh
-cat /etc/passwd | grep mark
+cat /etc/passwd | grep yousuf
 ```
 
 ### Postfix
@@ -38,9 +38,9 @@ mydomain = xfusioncorp.com
 myorigin = $mydomain
 inet_interfaces = all
 
+mydestination = $myhostname, localhost.$mydomain, localhost, $mydomain
 mynetworks = 127.0.0.0/8, 172.16.0.0/12
 relay_domains = $mydestination
-mydestination = $myhostname, localhost.$mydomain, localhost, $mydomain
 home_mailbox = Maildir/
 
 # Security settings
@@ -65,12 +65,12 @@ Verify with **Telnet**.
 ```sh
 telnet stmail01 25
 EHLO localhost
-MAIL FROM: mark@stratos.xfusioncorp.com
-RCPT TO: mark@stratos.xfusioncorp.com
+MAIL FROM: yousuf@stratos.xfusioncorp.com
+RCPT TO: yousuf@stratos.xfusioncorp.com
 DATA
 Subject: Test Email
-From: mark@stratos.xfusioncorp.com
-To: mark@stratos.xfusioncorp.com
+From: yousuf@stratos.xfusioncorp.com
+To: yousuf@stratos.xfusioncorp.com
 
 This is a test email.
 .
@@ -98,11 +98,13 @@ auth_mechanisms = plain login
 ```
 
 Modify `/etc/dovecot/conf.d/10-master.conf`.  
-```sh
-auth-userdb {
-    mode = 0666
+```conf
+service auth {
+  unix_listener auth-userdb {
+    mode = 0600
     user = postfix
     group = postfix
+  }
 }
 ```
 
@@ -115,12 +117,17 @@ sudo systemctl status dovecot
 ```
 
 #### Test
-Get email sent from **Postfix**
+Get emails sent.
 ```sh
 telnet localhost pop3
-user mark
+user yousuf
 pass GyQkFRVNr3
 retr 1 # retrieve 1st message
+```
+
+Restart **Postfix**
+```sh
+sudo postfix reload
 ```
 
 
