@@ -1,9 +1,15 @@
 # Postfix Dovecot
 Postfix as mail transfer agent.  
-Dovecot as IMAP/POP3
+Dovecot as IMAP/POP3.  
+
+```
+User's Browser → Roundcube (Web Interface) → Dovecot (IMAP) → Mail Storage
+
+Internet Email → Postfix (SMTP) → Dovecot (LMTP) → Mail Storage
+```
 
 ## Installation
-Install **Postfix** and **Dovecot** on **CentOS 9**.  
+**Postfix** and **Dovecot** on **CentOS 9**.  
 ```sh
 sudo dnf update -y &&\
 sudo dnf install postfix dovecot -y
