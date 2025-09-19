@@ -5,3 +5,4 @@
 4. [Secure Shell](./SSH.md)
 5. [SSL](./SSL.md)
 6. [SELinux](./SElinux.md)
+7. [GPG](./GPG.md)
