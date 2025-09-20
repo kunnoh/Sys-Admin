@@ -10,8 +10,20 @@ yum-config-manager --add-repo [https://download.docker.com/linux/centos/docker-c
 curl -L "[https://github.com/docker/compose/releases/download/2.22.0/docker-compose-$(uname-s)-$(uname-m](https://github.com/docker/compose/releases/download/2.22.0/docker-compose-$(uname-s)-$(uname-m))" -o /usr/local/bin/docker-compose
 ```
 
+## Logs
+Show last 40 lines in logs and follow log output.
+```sh
+docker logs --tail 40 -f <container name/id>
+```
 
-#### Docker copy files
+### Pull image and tag
+Pull **busybox:musl** image and re-tag (create new tag) this image as **busybox:blog**.
+```sh
+docker pull busybox:musl
+docker tag busybox:musl busybox:blog
+```
+
+### Copy files
 copy an encrypted file `/tmp/kunta.txt.gpg` from docker host to `ubuntu_latest` container (running on same server) in `/tmp/` location. Please do not try to modify this file in any way.
 
 Copy file.
@@ -24,13 +36,11 @@ Verify file.
 docker exec ubuntu_latest ls -la /tmp
 ```
 
-
-#### Webapp with Docker
-There is a static website running within a container named `kunta`, this container is running on `App Server 1`. Suddenly, we started facing some issues with the static website on `App Server 1`. Look into the issue to fix the same, you can find more details below:  
-1. Container's volume `/usr/local/apache2/htdocs` is mapped with the host's volume `/var/www/html`.  
-2. The website should run on host port `8080` on `App Server 1` i.e command `curl http://localhost:8080/` should work on `App Server 1`.
-
-
+### Create image from container
+```sh
+docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]
+docker commit nginx_base my-custom-nginx:v1
+```
 
 #### Docker cleanup  
 ##### Docker system cleanup:
