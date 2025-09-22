@@ -52,3 +52,19 @@ sed 's/About/ResCF/gI' /root/dista.xml
 	`sed '2a\This is a new line' file.txt`
 	Appends "This is a new line" after line 2.
 
+There is some data on Nautilus App Server 3 in Stratos DC. Data needs to be altered in some of the files. On Nautilus App Server 3, alter the /home/BSD.txt file as per details given below.
+
+
+a. Delete all lines containing the word following and save the results in /home/BSD_DELETE.txt file. (Please be aware of case sensitivity)
+
+b. Replace all occurrences of the word and (look for the exact match) with their and save the results in /home/BSD_REPLACE.txt file.
+
+Note: Let's say you are asked to replace the word to with from. In that case, make sure not to alter any words containing the string itself, for example; upto, contributor etc.
+
+```sh
+sed -n '/following/!p' /home/BSD.txt > /home/BSD_DELETE.txt
+```
+
+```sh
+sed 's/\band\b/their/g' /home/BSD.txt > /home/BSD_REPLACE.txt
+```

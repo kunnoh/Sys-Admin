@@ -1,6 +1,6 @@
-## User accounts
-**Create a user**
-create a user.
+# User accounts
+## Create a user
+Create a user.
 ```sh
 adduser -u 1200 kun
 ```
@@ -9,7 +9,7 @@ Options:
 - `-m` - user without home directory
 - `-u` - specify user id
 
-**Create a group.**
+### Create a group
 ```sh 
 addgroup dev
 ```
@@ -19,10 +19,20 @@ add `kun` to the `dev` group.
 usermod kun -G dev
 ```
 
-**Create user with expiry**
+### User with expiry
 create a user the user account should expire on `2023-06-22` .
 ```sh 
 adduser alvin -e 2023-06-22
+```
+
+Check user expiry.  
+```sh
+sudo chage -l username
+```
+
+Change expiration.  
+```sh
+sudo chage -E 2026-01-01 username
 ```
 
 #### User files

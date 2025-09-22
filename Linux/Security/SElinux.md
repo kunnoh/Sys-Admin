@@ -8,6 +8,7 @@ SELinux provides mechanism for ssupporting access contril security policies.
 **RHEL**
 ```sh
 yum install selinux* -y
+sudo yum install -y policycoreutils selinux-policy-targeted libselinux-utils
 ```
 
 - check `selinux` status
@@ -18,6 +19,12 @@ sestatus
 Edit the `/etc/selinux/config` and add 
 ```sh
 SELINUX=disabled
+```
+
+Permanentl disble 
+```sh
+sudo sed -i 's/^SELINUX=enforcing/SELINUX=disabled/' /etc/selinux/config
+sudo sed -i 's/^SELINUX=permissive/SELINUX=disabled/' /etc/selinux/config
 ```
 
 ## Reference
