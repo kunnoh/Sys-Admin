@@ -1,16 +1,26 @@
-#### Install docker
-install docker in rhel
+# Docker
+
+## Install
+### Docker
+Install docker in **RHEL**. 
 ```sh
 yum-config-manager --add-repo [https://download.docker.com/linux/centos/docker-ce.repo](https://download.docker.com/linux/centos/docker-ce.repo)
 ```
 
-
-#### Install docker-compose
+### Docker-compose
 ```sh
 curl -L "[https://github.com/docker/compose/releases/download/2.22.0/docker-compose-$(uname-s)-$(uname-m](https://github.com/docker/compose/releases/download/2.22.0/docker-compose-$(uname-s)-$(uname-m))" -o /usr/local/bin/docker-compose
 ```
 
-## Logs
+### Docker MCP
+Download binary and save to `/usr/local/lib/docker/cli-plugins/`.
+```sh
+curl -O --output-dir /tmp/ <url>
+tar -xvf /tmp/<filename> /usr/local/lib/docker/cli-plugins/
+```
+
+## Configure
+### Logs
 Show last 40 lines in logs and follow log output.
 ```sh
 docker logs --tail 40 -f <container name/id>
@@ -42,8 +52,7 @@ docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]
 docker commit nginx_base my-custom-nginx:v1
 ```
 
-#### Docker cleanup  
-##### Docker system cleanup:
+### Docker cleanup  
 Check the disk space used by the Docker daemon.   
 ```sh
 docker system df
@@ -59,7 +68,18 @@ Docker volume cleanup:
 docker volume prune -af
 ```
 
+## Debug Containers
+Run debugging container, attach network or volume.
+```sh
+docker run --rm -it \
+    -v <host_path>:<container_path> \
+    --network <network_name> \
+    debian:latest \
+    bash
+```
+
+
 
 ## Reference
 1. [Docker docs]()
-[]()
+2. [Docker MCP](https://docs.docker.com/ai/mcp-catalog-and-toolkit/get-started/)
