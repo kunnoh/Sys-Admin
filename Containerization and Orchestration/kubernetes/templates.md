@@ -1,6 +1,12 @@
 # Kubernetes
 
 ## Template
+### Namespace
+```sh
+kubectl create namespace <namespace-name> \
+  --dry-run=client -o yaml > namespace.yaml
+```
+
 ### Pod  
 ```sh
 kubectl run <pod-name> \

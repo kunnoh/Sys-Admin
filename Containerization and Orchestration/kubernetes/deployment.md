@@ -1,5 +1,15 @@
 # Kubernetes Deployment
 
+## Deployment
+Get deployment yaml.  
+```sh
+kubectl get pod nginx-phpfpm -o yaml  > /tmp/nginx.yaml
+```
+Modify `/tmp/nginx.yaml` Force changes.  
+```sh
+kubectl replace -f /tmp/nginx.yaml --force
+```
+
 ## Rollout
 Check status.
 ```sh
@@ -11,18 +21,14 @@ List history of deployment.
 kubectl rollout history deployment/<deployment_name>
 ```
 
-Exec rollback.
+Upgrade deployment.  
 ```sh
-kubectl rollout undo deployment/<deployment_name> --to-revision=<revision_number>
+kubectl set image deployment/<your-deployment-name> <container-name>=httpd:2.4.43
 ```
 
-Get deployment yaml.  
+Undo deployment.
 ```sh
-kubectl get pod nginx-phpfpm -o yaml  > /tmp/nginx.yaml
-```
-Modify `/tmp/nginx.yaml` Force changes.  
-```sh
-kubectl replace -f /tmp/nginx.yaml --force
+kubectl rollout undo deployment/<deployment_name> --to-revision=<revision_number>
 ```
 
 
