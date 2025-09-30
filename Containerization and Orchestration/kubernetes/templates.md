@@ -29,7 +29,7 @@ kubectl create deployment <deployment-name> \
   --dry-run=client -o yaml > deployment.yaml
 ```
 
-### NodePort
+#### Expose deployment
 ```sh
 kubectl expose deployment <deployment-name> \
   --type=NodePort \
@@ -38,4 +38,39 @@ kubectl expose deployment <deployment-name> \
   --dry-run=client -o yaml > service.yaml
 ```
 
-### 
+### NodePort
+```sh
+kubectl create service nodeport <service-name> \
+  --tcp=80:80 \
+  --node-port=30008 \
+  --dry-run=client -o yaml > service.yaml
+```
+
+### Persistent Volume
+```yaml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: my-pv
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes: [ReadWriteOnce]
+  hostPath:
+    path: /data
+```
+
+### Persistent Volume Claim
+```yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: my-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: manual
+  resources:
+    requests:
+      storage: 1Gi
+```
