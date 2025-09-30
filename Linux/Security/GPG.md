@@ -7,4 +7,4 @@ gpg --gen-key
 ```
 
 ## Reference
-1. [GPG](https://www.gnupg.org/gph/en/manual/x110.html)
+1. [GNU Privacy Guard](https://www.gnupg.org/)
