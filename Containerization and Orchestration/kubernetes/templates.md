@@ -55,7 +55,9 @@ metadata:
 spec:
   capacity:
     storage: 1Gi
-  accessModes: [ReadWriteOnce]
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: manual
   hostPath:
     path: /data
 ```
@@ -73,4 +75,18 @@ spec:
   resources:
     requests:
       storage: 1Gi
+```
+
+## Config Map
+```sh
+# From literal values
+kubectl create configmap <configmap-name> \
+  --from-literal=key1=value1 \
+  --from-literal=key2=value2 \
+  --dry-run=client -o yaml > configmap.yaml
+
+# From file
+kubectl create configmap <configmap-name> \
+  --from-file=<file-path> \
+  --dry-run=client -o yaml > configmap.yaml
 ```
