@@ -77,7 +77,7 @@ spec:
       storage: 1Gi
 ```
 
-## Config Map
+### Config Map
 ```sh
 # From literal values
 kubectl create configmap <configmap-name> \
@@ -89,4 +89,12 @@ kubectl create configmap <configmap-name> \
 kubectl create configmap <configmap-name> \
   --from-file=<file-path> \
   --dry-run=client -o yaml > configmap.yaml
+```
+
+## Secrets
+```sh
+kubectl create secret generic my-secret \
+  --from-literal=username=admin \
+  --from-literal=password=mypassword \
+  --dry-run=client -o yaml > secret.yaml
 ```
