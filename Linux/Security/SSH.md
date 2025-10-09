@@ -55,7 +55,7 @@ ssh-keygen -t ed25519 -C "your key comment" -f /path/to/key/filename
 - `-f` - Specify output folder and name.  
 
 
-### Copy Public key to the server  
+Copy Public key to the server  
 **Automatically**  
 Use `ssh-copy-id` to copy the public key. This will ask for password being used currently.  
 ```sh
