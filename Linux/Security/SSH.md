@@ -13,34 +13,29 @@ In cryptography, the **Elliptic Curve Digital Signature Algorithm (ECDSA)** offe
 **ECDSA** is one of the more complex public key cryptography encryption algorithms.  
 
 
-### Generate ECDSA key pair uisng OpenSSL  
+### Generate ECDSA key pair using OpenSSL  
 1. Generate private key.  
-
     ```sh
     openssl ecparam -genkey -name prime256v1 -noout -out /path/to/ecdsa_private_key_name.pem
     ```
 
 2. Generate public key.  
-
     ```sh
     openssl ec -in /path/to/ecdsa_private_key_name.pem -pubout -out /path/to/ecdsa_public_key_name.pem
     ```
 
 3. Verify generated keys.  
-
     ```sh
     openssl ec -in /path/to/ecdsa_private_key.pem -check
     ``` 
 
 4. Convert Public Key to OpenSSH format.  
     Servers that require public key to be in `OpenSSH` format for authentication.  
-
     ```sh
     ssh-keygen -f /path/to/ecdsa_public_key_name.pem -i -m PKCS8 > /path/to/public_key_openssh.pub
     ``` 
 
 5. Change permission to read for owner.  
-
     ```sh
     chmod 400 /path/to/ecdsa_private_key_name.pem
     ```  
@@ -78,11 +73,12 @@ mkdir ~/.ssh && chmod 600 -R ~/.ssh/
 
 ## SSH configurations and hardening  
 **Config files:**
-- `etc/ssh/sshd_config` - SSH srver. How others connect to you.
+- `etc/ssh/sshd_config` - SSH server. How others connect to you.
 - `etc/ssh/ssh_config`  - SSH client. How you connect to others.
 
 
 ### ssh_config
+Add remote host.  
 ```sh
 Host <host>
 HostName <hostname/ip addr>
