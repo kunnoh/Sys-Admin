@@ -11,12 +11,13 @@ Use parted if you want a tool that supports both MBR and GPT interactively.
 ## Mount
 **Block devices** - found under `/dev/` directory. Represent piece of hardware that transfers data in blocks, typically disks (HDDs, SSDs, USB drives).  
 Data is written or read in block state.  
-To see block devices, use `lsblk`.  
+Check block devices, 
+1. `lsblk`.  
 ```sh
 lsblk
 ```
 
-or `ls` on `/dev/`.  
+2. `ls` on `/dev/`.  
 ```sh
 ls -l /dev/ | grep "^b"
 ```  
@@ -42,7 +43,7 @@ gdisk -l /dev/sdb
 
 Create new partition.
 ```sh
-gidisk /dev/sdb
+gdisk /dev/sdb
 ```
 
 type `n` to create new partition.
@@ -94,7 +95,7 @@ mount | grep /dev/sdb1
 
 Make this drive to mount after reboot, edit `fstab`.
 ```sh
-vim /etc/fstab
+vi /etc/fstab
 ```
 
 ```conf
