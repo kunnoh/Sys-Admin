@@ -27,10 +27,10 @@ Add user.
 ### Hosts
 1. Add SSH plugin, SSH Credentials Plugin, SSH Build Agents plugin Version.  
    Click ***Jenkins > Manage Jenkins > Plugins***.  
-   Install **SSH, SSH-build-agent**.  
+   Install **SSH, SSH Credentials, SSH Build Agent**.  
 2. Create SSH key pair on deployment server.  
 3. On jenkins dashboard, add credentials.  
-   Click ***Manage Jenkins > Credentials***
+   Under ***Jenkins > Manage Jenkins > Manage Credentials***., add new credentials.  
 4. Add SSH hosts on jenkins dashboard.  
    Click ***Jenkins > Manage Jenkins > System#SSH remote hosts***   
 
