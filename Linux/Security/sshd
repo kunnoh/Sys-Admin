@@ -1,0 +1,107 @@
+# This is the sshd server system-wide configuration file.  See
+# sshd_config(5) for more information.
+
+# This sshd was compiled with PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
+
+# The strategy used for options in the default sshd_config shipped with
+# OpenSSH is to specify options with their default value where
+# possible, but leave them commented.  Uncommented options override the
+# default value.
+
+Include /etc/ssh/sshd_config.d/*.conf
+
+# When systemd socket activation is used (the default), the socket
+# configuration must be re-generated after changing Port, AddressFamily, or
+# ListenAddress.
+#
+# For changes to take effect, run:
+#
+#   systemctl daemon-reload
+#   systemctl restart ssh.socket
+#
+
+Port 22
+AddressFamily inet  # Use inet for IPv4 only, or inet6 for IPv6 only, or 'any' for both
+ListenAddress 0.0.0.0  # Specify specific IP if server has multiple interfaces
+
+# Host Keys
+HostKey /etc/ssh/ssh_host_rsa_key
+HostKey /etc/ssh/ssh_host_ecdsa_key
+HostKey /etc/ssh/ssh_host_ed25519_key
+
+# Ciphers and keying
+KexAlgorithms curve25519-sha256,curve25519-sha256@libssh.org,diffie-hellman-group16-sha512,diffie-hellman-group18-sha512,diffie-hellman-group-exchange-sha256
+Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr
+MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-sha2-512,hmac-sha2-256
+RekeyLimit 512M 1h  # Rekey after 512MB or 1 hour
+
+# Logging
+SyslogFacility AUTH
+LogLevel VERBOSE
+
+# Authentication:
+LoginGraceTime 30s # Limit exposure
+PermitRootLogin no # Root should never login directly
+StrictModes yes # Check file permissions
+MaxAuthTries 3 # Limit brute force attempts
+MaxSessions 5 # Limit resource usage
+
+# Public Key Auth
+PubkeyAuthentication yes # Public key auth
+AuthorizedKeysFile .ssh/authorized_keys
+PubkeyAcceptedKeyTypes ssh-ed25519,ssh-ed25519-cert-v01@openssh.com,sk-ssh-ed25519@openssh.com,sk-ssh-ed25519-cert-v01@openssh.com,rsa-sha2-256,rsa-sha2-512
+
+# Certificate-based authentication
+#AuthorizedPrincipalsFile none
+#AuthorizedKeysCommand none
+#AuthorizedKeysCommandUser nobody
+
+# Disable weak auth methods
+HostbasedAuthentication no
+IgnoreUserKnownHosts yes
+IgnoreRhosts yes # Don't read the user's ~/.rhosts and ~/.shosts files
+PasswordAuthentication no
+PermitEmptyPasswords no
+KbdInteractiveAuthentication no
+KerberosAuthentication no
+GSSAPIAuthentication no
+
+# PAM
+UsePAM yes
+
+# Security Restrictions
+AllowAgentForwarding no
+AllowTcpForwarding yes # port forwarding/tunneling
+GatewayPorts no
+X11Forwarding no
+PermitTTY yes # Terminal allocation
+PermitUserEnvironment no # no ~/.ssh/environment processing
+PermitTunnel no # Layer 3 tunneling
+
+# Access Control
+# AllowUsers user1  # Whitelist users
+# AllowGroups sshusers  # whitelist groups
+# DenyUsers baduser  # Blacklist users
+DenyGroups nologin  # Blacklist groups
+
+# Banner & Messages
+PrintMotd no
+PrintLastLog yes
+# Banner /etc/ssh/banner.txt # Legal banner
+
+# Performance Optimization
+Compression yes # Enable compression for slow connections
+ClientAliveInterval 300 # Send keepalive for every 5 mins
+ClientAliveCountMax 2 # Disconnect after 10min idle
+UseDNS no # No reverse DNS lookup - reducing latency
+TCPKeepAlive yes # Detect dead connections at TCP level
+
+# Security
+DebianBanner no  # Don't reveal OS version
+PermitUserRC no  # Prevent ~/.ssh/rc execution
+
+# Connection management
+MaxStartups 10:30:60 # Drop 30% of connections once 10 concurrent, reject all at 60
+
+# Allow client to pass locale environment variables
+AcceptEnv LANG LC_*

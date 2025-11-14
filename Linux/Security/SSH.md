@@ -78,7 +78,7 @@ mkdir ~/.ssh && chmod 600 -R ~/.ssh/
 
 
 ### ssh_config
-Add remote host.  
+Add remote host on `~/.ssh/config`.  
 ```sh
 Host <host>
 HostName <hostname/ip addr>
@@ -88,60 +88,33 @@ IdentityFile <private key file>
 ```
 
 ### sshd_config
-1. Complete `sshd_config` file with ssh hardening.  
-```conf
-Include /etc/ssh/sshd_config.d/*.conf
+Complete [/etc/ssh/sshd_config](./sshd) file with ssh hardening.  
 
-Port 22
-AddressFamily any
-ListenAddress 0.0.0.0
-ListenAddress ::
-
-UsePAM yes # Needed for advanced features like user resource limits, 2FA or sessions limits, and system policies.
-PrintMotd no
-AcceptEnv LANG LC_* # Send locale variables
-Subsystem       sftp    /usr/lib/openssh/sftp-server
-
-# Authentication
-PubkeyAuthentication yes
-PasswordAuthentication no
-PermitRootLogin prohibit-password
-PermitEmptyPasswords no
-LoginGraceTime 320
-MaxAuthTries 3
-MaxSessions 4
-AuthorizedKeysFile .ssh/authorized_keys
-KbdInteractiveAuthentication no # Disables keyboard-interactive auth. Reduce brute-force or 2FA bypass vectors.
-ChallengeResponseAuthentication no # Challenge-response authentication (used for one-time passwords or legacy systems). Often paired with UsePAM yes to manage authentication
-IgnoreRhosts yes # Don't read the user's ~/.rhosts and ~/.shosts files
-
-# Kerberos options
-#KerberosAuthentication no
-#KerberosOrLocalPasswd yes
-#KerberosTicketCleanup yes
-#KerberosGetAFSToken no
-
-# GSSAPI options
-GSSAPIAuthentication no
-#GSSAPICleanupCredentials yes
-#GSSAPIStrictAcceptorCheck yes
-#GSSAPIKeyExchange no
-
-X11Forwarding no
-AllowTcpForwarding no
-PermitUserEnvironment no
-ClientAliveInterval 300
-ClientAliveCountMax 2
-AllowUsers <youruser>
-
-# Logging
-LogLevel VERBOSE
-# SyslogFacility AUTH
-
-Banner /etc/issue.net # Display a custom banner i.e for legal notices
-Compression yes # Improve speed on slow links
+Validate.  
+```sh
+sshd -T
 ```
 
+#### Key improvements
+1. Strong cryptography: Moder cipher suites.  
+2. Reduced attack surface: Disabled unnecessary features i.e TCP forwarding, agent forwarding.  
+3. Strictier authentication: reduced login grace time and max auth tries.  
+4. Connection management: Better idle timeout settings.  
+5. Algorithm whitlisting: Using modern secure and MAC algorithms.  
+6. Disabled password authentication: Using key pair to authenticate.  
+7. Disabled root authentication: To login as a user you must login as an allowed user then use sudo to login as a root user.
+8. Whitelisted users and groups to login: Only certain users and groups can login.  
+
+
+Restart **SSH** service.  
+```sh
+sudo systemctl daemon-reload && \
+sudo systemctl restart ssh
+```
+
+#### Recommendations
+1. Change SSH port - to reduce automated attacks.  
+2. Install and configure fail2ban.  
 
 ## Reference
 1. [SSH wiki](https://en.wikipedia.org/wiki/Secure_Shell)
