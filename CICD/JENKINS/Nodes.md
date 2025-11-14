@@ -1,7 +1,8 @@
 # Slave Nodes
 To add slave nodes in Jenkins, add SSH build agent, SSH Credentials plugins.   
 
-**Manage Jenkins > Plugins > Available plugins**. Add 
+**Manage Jenkins > Plugins > Available plugins**.  
+    - Add **SSH, SSH build agent, SSH Credentials** plugins.  
 **Manage Jenkins > Credentials > (global)->add credentials**
 **Manage Jenkins > System > SSH remote hosts#SSH sites->Add**
 **Manage Jenkins > Nodes > + New Node**
