@@ -92,9 +92,14 @@ Complete [/etc/ssh/sshd_config](./sshd) file with ssh hardening.
 
 Validate.  
 ```sh
-sshd -T
+sudo sshd -T
 ```
 
+Restart **SSH** service.  
+```sh
+sudo systemctl daemon-reload && \
+sudo systemctl restart ssh
+```
 #### Key improvements
 1. Strong cryptography: Moder cipher suites.  
 2. Reduced attack surface: Disabled unnecessary features i.e TCP forwarding, agent forwarding.  
@@ -104,13 +109,6 @@ sshd -T
 6. Disabled password authentication: Using key pair to authenticate.  
 7. Disabled root authentication: To login as a user you must login as an allowed user then use sudo to login as a root user.
 8. Whitelisted users and groups to login: Only certain users and groups can login.  
-
-
-Restart **SSH** service.  
-```sh
-sudo systemctl daemon-reload && \
-sudo systemctl restart ssh
-```
 
 #### Recommendations
 1. Change SSH port - to reduce automated attacks.  
