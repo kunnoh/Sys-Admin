@@ -1,7 +1,7 @@
-# SSH Configuration
+# Secure Shell (SSH)
 
 ## Introduction  
-The **Secure Shell Protocol (SSH Protocol)** is a cryptographic network protocol for operating network services securely over an unsecured network. Its most notable applications are remote login and command-line execution.
+**Secure Shell Protocol (SSH Protocol)** is a cryptographic network protocol for operating network services securely over an unsecured network. Its most notable applications are remote login and command-line execution.
 
 **OpenSSL** is a cryptographic library that enables an open source implementation of **Transport Layer Security (TLS)** and **Secure Sockets Layer (SSL)** protocols. It provides functions to generate private keys, manage certificates, and equip client applications with encryption and decryption.  
 
@@ -78,6 +78,11 @@ mkdir ~/.ssh && chmod 600 -R ~/.ssh/
 
 
 ### ssh_config
+Check **ssh** version.  
+```sh
+sshd -V
+```  
+
 Add remote host on `~/.ssh/config`.  
 ```sh
 Host <host>
@@ -90,7 +95,7 @@ IdentityFile <private key file>
 ### sshd_config
 Complete [/etc/ssh/sshd_config](./sshd) file with ssh hardening.  
 
-Validate.  
+Validate configuration file.  
 ```sh
 sudo sshd -T
 ```
@@ -98,21 +103,21 @@ sudo sshd -T
 Restart **SSH** service.  
 ```sh
 sudo systemctl daemon-reload && \
-sudo systemctl restart ssh
+sudo systemctl restart sshd
 ```
 #### Key improvements
-1. Strong cryptography: Moder cipher suites.  
+1. Strong cryptography: Modern cipher suites.  
 2. Reduced attack surface: Disabled unnecessary features i.e TCP forwarding, agent forwarding.  
 3. Strictier authentication: reduced login grace time and max auth tries.  
 4. Connection management: Better idle timeout settings.  
 5. Algorithm whitlisting: Using modern secure and MAC algorithms.  
 6. Disabled password authentication: Using key pair to authenticate.  
-7. Disabled root authentication: To login as a user you must login as an allowed user then use sudo to login as a root user.
+7. Disabled root authentication: Use sudo to login as a root user.
 8. Whitelisted users and groups to login: Only certain users and groups can login.  
 
 #### Recommendations
 1. Change SSH port - to reduce automated attacks.  
-2. Install and configure fail2ban.  
+2. Install and configure fail2ban/iptables.  
 
 ## Reference
 1. [SSH wiki](https://en.wikipedia.org/wiki/Secure_Shell)
