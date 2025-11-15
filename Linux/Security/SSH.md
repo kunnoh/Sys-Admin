@@ -95,7 +95,12 @@ IdentityFile <private key file>
 ### sshd_config
 Complete [/etc/ssh/sshd_config](./sshd) file with ssh hardening.  
 
-Validate configuration file.  
+Test config file.  
+```sh
+sudo sshd -t
+```
+
+View effective config file.  
 ```sh
 sudo sshd -T
 ```
@@ -103,8 +108,10 @@ sudo sshd -T
 Restart **SSH** service.  
 ```sh
 sudo systemctl daemon-reload && \
-sudo systemctl restart sshd
+sudo systemctl restart ssh
 ```
+***Critical***: Always keep your current SSH session open when testing changes, so you can revert if locked out!
+
 #### Key improvements
 1. Strong cryptography: Modern cipher suites.  
 2. Reduced attack surface: Disabled unnecessary features i.e TCP forwarding, agent forwarding.  

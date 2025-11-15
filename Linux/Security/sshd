@@ -25,7 +25,6 @@ AddressFamily inet  # Use inet for IPv4 only, or inet6 for IPv6 only, or 'any' f
 ListenAddress 0.0.0.0  # Specify specific IP if server has multiple interfaces
 
 # Host Keys
-HostKey /etc/ssh/ssh_host_rsa_key
 HostKey /etc/ssh/ssh_host_ecdsa_key
 HostKey /etc/ssh/ssh_host_ed25519_key
 
@@ -40,6 +39,7 @@ SyslogFacility AUTHPRIV
 LogLevel VERBOSE # DEBUG for troubleshooting
 
 # Authentication:
+AuthenticationMethods publickey
 LoginGraceTime 20s # Limit exposure
 PermitRootLogin no # Root should never login directly
 StrictModes yes # Check file permissions
@@ -70,10 +70,11 @@ GSSAPIAuthentication no
 UsePAM yes
 
 # Forwarding
-#PermitOpen none  # Disable all port forwarding
+# PermitOpen none  # Disable all port forwarding
+# PermitOpen localhost:* 10.0.0.0/8:*  # Restrict forwarding destinations
 AllowAgentForwarding no
 AllowTcpForwarding yes # port forwarding/tunneling
-#AllowStreamLocalForwarding no
+AllowStreamLocalForwarding no
 GatewayPorts no
 X11Forwarding no
 PermitTTY yes # Terminal allocation
@@ -89,12 +90,12 @@ DenyGroups nologin
 # Banner & Messages
 PrintMotd no
 PrintLastLog yes
-# Banner /etc/ssh/banner.txt # Legal banner
 
 # Performance Optimization
-Compression yes # Enable compression for slow connections
-ClientAliveInterval 120 # Send keepalive for every 2 mins
-ClientAliveCountMax 3 # Disconnect after 6min idle
+Compression delayed # Against CRIME-style attacks
+MaxSessions 3 # Limit resource usage
+ClientAliveInterval 60 # Send keepalive for every 1 min
+ClientAliveCountMax 2 # Disconnect after 2mins idle
 UseDNS no # No reverse DNS lookup - reducing latency
 TCPKeepAlive yes # Detect dead connections at TCP level
 
@@ -107,7 +108,9 @@ HostKeyAlgorithms ssh-ed25519,ssh-ed25519-cert-v01@openssh.com,rsa-sha2-512,rsa-
 
 # Connection management
 MaxStartups 5:50:10 # Start dropping at 5, reject all at 10
-MaxSessions 5 # Limit resource usage
+PerSourceMaxStartups 2
+PerSourceNetBlockSize 32:128
+ChannelTimeout session:idle=300 # Prevent stuck channels
 
 # Allow client to pass locale environment variables
 AcceptEnv LANG LC_*
