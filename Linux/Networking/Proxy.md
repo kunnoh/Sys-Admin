@@ -8,7 +8,7 @@ On the remote server, edit `/etc/ssh/sshd_config`:
 AllowTcpForwarding yes # Allow TCP forwarding on server
 PermitOpen localhost:* 10.0.0.0/8:*  # Your IP
 ```
-Refer setting [ssh configuration](../Security/SSH.md) on previous blog.
+Refer setting [ssh configuration](../Security/SSH.md#ssh-configurations-and-hardening) on previous blog.
 
 Restart **SSH** service.  
 ```sh
@@ -39,7 +39,7 @@ Host mysocks
     Compression yes
     ExitOnForwardFailure yes
 ```
-Refer to setting [ssh configuration](../Security/SSH.md) key pair.  
+Refer to setting [ssh configuration](../Security/SSH.md#generate-ecdsa-key-pair-using-ssh-keygen) key pair.  
 
 Ensure SSH key has correct permissions:  
 ```sh
@@ -68,6 +68,53 @@ Without proxy, shows your real IP address.
 curl https://ifconfig.me
 ```
 
+## Systemd Service Setup
+Create the service file `/etc/systemd/system/socks-proxy.service`:
+```ini
+[Unit]
+Description=SSH SOCKS5 Proxy
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=<user>
+
+ExecStart=/usr/bin/ssh -N -v mysock
+Restart=always
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+# Security hardening
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Manage the proxy service.  
+```sh
+sudo systemctl daemon-reload # Reload systemd to recognize the new service
+
+sudo systemctl enable socks-proxy.service # Enable service to start on boot
+
+sudo systemctl disable socks-proxy.service # Disable the service
+
+sudo systemctl start socks-proxy.service # Start the service now
+
+sudo systemctl status socks-proxy.service # Check service status
+
+sudo systemctl restart ssh-socks-proxy # Restart the service
+
+sudo systemctl stop socks-proxy.service # Stop the service
+```
+
+Logs.  
+```sh
+sudo journalctl -u ssh-socks-proxy -n 50 -f # View recent logs and follow
+```
 
 
 ## Proxychains
@@ -116,3 +163,4 @@ sudo kill -9 <pid>
 ## Reference
 1. [SSH dynamic port forwarding](https://www.redhat.com/en/blog/ssh-dynamic-port-forwarding)  
 2. [Proxychains](https://www.kali.org/tools/proxychains-ng/)  
+3. [Systemd](https://www.freedesktop.org/software/systemd/man/latest/systemd.service.html)  
