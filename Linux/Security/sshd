@@ -87,7 +87,7 @@ PermitTunnel no # Layer 3 tunneling
 # DenyUsers baduser
 DenyGroups nologin
 
-# Banner & Messages
+# Messages
 PrintMotd no
 PrintLastLog yes
 
@@ -101,6 +101,8 @@ TCPKeepAlive yes # Detect dead connections at TCP level
 
 # Security
 DebianBanner no  # Don't reveal OS version
+versionaddendum none # Don't show package/distro info
+Banner none # No banner
 PermitUserRC no  # Prevent ~/.ssh/rc execution
 FingerprintHash sha256 # Log all fingerprints
 RequiredRSASize 2048  # Reject weak RSA keys
