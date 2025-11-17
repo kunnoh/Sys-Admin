@@ -64,15 +64,39 @@ DOT - Secure tunnel port 853
 DNSSEC -  
 DoH -   
 
-## DoT and DNSSEC.  
+### Configure DoT and DNSSEC.  
 Edit `/etc/systemd/resolved.conf`.  
 ```ini
 [Resolve]
-FallbackDNS=
-DNSOverTLS=yes
+# DNS Servers
+FallbackDNS=1.1.1.1#cloudflare-dns.com 2606:4700:4700::1111#cloudflare-dns.com 8.8.8.8#dns.google 2001:4860:4860::8888#dns.google
+
+# Security Settings
 DNSSEC=yes
-Domain=~.
+DNSOverTLS=yes
+MulticastDNS=no
+LLMNR=no
+Domains=~.# Route all domains through encrypted DNS
+DNSOverTLS=opportunistic # Alternative: Use 'yes' for strict (may break some networks)
+ResolveUnicastSingleLabel=no # Already set - prevents single-label DNS queries
+DNSStubListenerExtra= # Can add additional stub listeners if needed
+
+# Performance Optimizations
 Cache=yes
+CacheFromLocalhost=no
+DNSStubListener=yes
+ReadEtcHosts=yes
+ResolveUnicastSingleLabel=no
+StaleRetentionSec=3600
+CacheTTLSec=0 # Respect upstream TTL (0=use server TTL)
+NegativeCacheTTLSec=10 # Cache negative responses for 10 seconds (default: 120)
+
+# Network Optimization
+Protocols=dns https-dns # Prioritize DoT and DoH if available
+DNSDefaultRoute=yes # Use this resolver as default route for all domains
+
+# Advanced Tuning
+MaxCacheEntries=8192 # Increase cache size (default: 4096) - more memory, faster lookups
 ```  
 
 Restart the services and check **resolved** status.  
@@ -81,7 +105,7 @@ sudo systemctl restart systemd-networkd
 sudo systemctl restart systemd-resolved
 ```  
 
-Flush cache  
+Flush cache.  
 ```sh
 sudo systemd-resolve --flush-caches
 ```  
@@ -91,6 +115,21 @@ Test.
 sudo tcpdump -i any -n any -vvv -c 80 '(port 53 or port 853 or port 443)' > tcpdump_output_1.txt 2>&1
 ```  
 
+### Monitor
+Monitor DNS queries in real-time.  
+```sh
+sudo resolvectl monitor
+```  
+
+Check DNS statistics.  
+```sh
+sudo resolvectl statistics
+```  
+
 /etc/resolv.conf  
 /etc/hosts  
 /etc/nsswitch.conf  
+
+## Reference
+1. [DNS Wiki](https://en.wikipedia.org/wiki/Domain_Name_Systemhttps://en.wikipedia.org/wiki/Domain_Name_System)  
+2. [DNS security](https://www.cloudflare.com/learning/dns/dns-security/)  
