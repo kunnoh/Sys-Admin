@@ -10,9 +10,9 @@ git remote show origin # Detailed config
 ```
 
 #### Set remote URL
-Add local repo to existing repo on [Github](https://github.com) to local repository.  
+Add local repo to existing repo on [Github](https://github.com).  
 ```sh
-git remote set-url origin git@github.com:kunnoh/kunnoh.github.io.git
+git remote set-url origin git@github.com:<username>/<repo_name>.git
 ```
 
 #### New branch from a commit
