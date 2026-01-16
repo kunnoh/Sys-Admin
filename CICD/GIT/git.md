@@ -2,6 +2,18 @@
 [Git](https://git-scm.com/) is a distributed version control software system. 
 
 ## Configuration
+### Init
+You initialized a fresh repo, but no remote exists yet, so Git can’t “set” it.  
+Add the remote first.  
+```sh
+git remote add origin https://github.com/<username>/<repo_name>.git
+```
+
+Verify:  
+```sh
+git remote -v
+```
+
 ### Remotes
 #### list all Git remotes
 ```sh
