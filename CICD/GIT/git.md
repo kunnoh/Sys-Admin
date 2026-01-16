@@ -4,14 +4,32 @@
 ## Configuration
 ### Init
 You initialized a fresh repo, but no remote exists yet, so Git can’t “set” it.  
+```sh
+git init
+```
+
 Add the remote first.  
 ```sh
-git remote add origin https://github.com/<username>/<repo_name>.git
+git remote add origin https://github.com/<username>/<repo_name>.git # HTTPS
+git remote add origin git@github.com:<username>/<repo_name>.git # SSH
 ```
 
 Verify:  
 ```sh
 git remote -v
+```
+
+#### Add branch
+```sh
+git branch -m main
+```
+
+#### Commit + push
+If you already have files:
+```sh
+git add .
+git commit -m "Initial commit"
+git push -u origin main
 ```
 
 ### Remotes
@@ -21,10 +39,11 @@ git remote -v
 git remote show origin # Detailed config
 ```
 
-##### Set remote URL
+#### Set remote URL
 Add local repo to existing repo on [Github](https://github.com).  
 ```sh
-git remote set-url origin git@github.com:<username>/<repo_name>.git
+git remote set-url origin https://github.com/<username>/<repo_name>.git # HTTPS
+git remote set-url origin git@github.com:<username>/<repo_name>.git # SSH
 ```
 
 Overwrite remote main with your local work.  
