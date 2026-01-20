@@ -1,6 +1,6 @@
 # Amazon Web Service
 
-## Reset password on EC2
+## Reset SSH keys on EC2
 1. Login to cloud console and stop running EC2 vm.  
 2. Search **volumes** add detach the root EBS volume from the stopped instance.  
 3. Create a new EC2 and choose existing block storage as the previous EC2 storage.  
@@ -12,7 +12,7 @@ SSH into the helper instance.
 ssh-keygen -t ed25519
 ```
 7. Add **public key** to the detached volume on `/home/.ssh/authorized_keys`.
-8. Unmount the disk and terminate the EC2.  
+8. Unmount the disk and terminate the recory EC2.  
 ```sh
 sudo umount /mnt/recover
 ```
