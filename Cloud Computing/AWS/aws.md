@@ -1,5 +1,15 @@
 # Amazon Web Service
 
+## Configure
+```sh
+aws configure
+```
+
+## IAM user on AWS CLI
+```sh
+aws sts get-caller-identity
+```
+
 ## Reset SSH keys on EC2
 1. Login to cloud console and stop running EC2 vm.  
 2. Search **volumes** add detach the root EBS volume from the stopped instance.  
