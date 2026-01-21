@@ -126,6 +126,9 @@ sudo systemctl restart ssh
 1. Change SSH port - to reduce automated attacks.  
 2. Install and configure fail2ban/iptables.  
 
+## Debugging
+
+
 ## Reference
 1. [SSH wiki](https://en.wikipedia.org/wiki/Secure_Shell)
 2. [OpenSSL wiki](https://en.wikipedia.org/wiki/OpenSSL)
