@@ -59,7 +59,7 @@ systemctl enable project-iko.service # Run the app on restarts
 
 
 2. ### Reflector with cronjob
-**Reflector** - is a Python script which can retrieve the latest mirror list from the Arch Linux Mirror Status page, filter the most up-to-date mirrors, sort them by speed and overwrite the file /etc/pacman.d/mirrorlist. 
+**Reflector** - is a Python script which can retrieve the latest mirror list from the **Arch Linux** Mirror Status page, filter the most up-to-date mirrors, sort them by speed and overwrite the file **/etc/pacman.d/mirrorlist**. 
 
 #### Systemd service  
 Create service file on `/etc/systemd/system/reflector-daily.service` to run daily cron job.  
@@ -72,7 +72,7 @@ Wants=network-online.target
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/reflector --age 12 --protocol https --sort rate --fastest 5 --save /etc/pacman.d/mirrorlist >> /var/log/reflector.log 2>&1 # Save log to /var/log/reflector.log
+ExecStart=/usr/bin/reflector --country 'Kenya,South Africa,Germany,United States' --age 12 --latest 50 --sort rate --fastest 20 --save /etc/pacman.d/mirrorlist >> /var/log/reflector.log 2>&1 # Save log to /var/log/reflector.log
 ```  
 
 #### Systemd timer  
