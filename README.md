@@ -1,5 +1,5 @@
 # System Administration
-This documentation outlines what I am learning as a **[system administrator](https://en.wikipedia.org/wiki/System_administrator)**.  
+This documentation outlines what I am learning as a **<a href="https://en.wikipedia.org/wiki/System_administrator" target="_blank">system administrator</a>**.  
 
 *Learning never exhaust the mind* ~ **Leonardo da Vinci**  
 
