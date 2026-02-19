@@ -1,7 +1,7 @@
 # System Administration
-This documentation outlines what I am learning as a **system administrator**.  
+This documentation outlines what I am learning as a **[system administrator](https://en.wikipedia.org/wiki/System_administrator)**.  
 
-**Learning never exhaust the mind** ~ *Leonardo da Vinci*  
+*Learning never exhaust the mind* ~ **Leonardo da Vinci**  
 
 ## Table of contents
 1. [DevOps](./DevOps/README.md)

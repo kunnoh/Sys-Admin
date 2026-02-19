@@ -3,10 +3,9 @@
 Common skills needed as a **DevOps** engineer.  
 
 ## Table of content
-1. [Becoming System Administrator](./Linux/README.md)
+1. [Linux](./Linux/README.md)
 2. [Containerization and Orchestration](./Containerization%20and%20Orchestration/README.md)
 3. [CICD](./CICD/README.md)
 4. [Cloud Computing](./Cloud%20Computing/README.md)
 5. [Infrastructure As Code](./IaC/README.md)
-6. [Linux OS](./Linux%20Distros/README.md)
-7. [Windows](./Windows/README.md)
+
