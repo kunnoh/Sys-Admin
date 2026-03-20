@@ -92,6 +92,11 @@ Start MariaDB normally.
 sudo systemctl start mariadb
 ```
 
+Test login.  
+```sh
+mysql -u root -p
+```
+
 ## Reference
 1. [MariaDB docs](https://mariadb.com/docs/server/mariadb-quickstart-guides/installing-mariadb-server-guide)
 2. []()
