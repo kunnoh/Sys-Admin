@@ -58,7 +58,39 @@ Show databases.
 SHOW DATABASES;
 ```
 
+## Reset root Password
+Stop the database.  
+```sh
+sudo systemctl stop mariadb
+```
 
+Start MariaDB in safe mode.  
+```sh
+sudo mysqld_safe --skip-grant-tables --skip-networking &
+```
+
+Login without password
+```sh
+mariadb -u root
+```
+
+Reset the password  
+```sql
+FLUSH PRIVILEGES;
+
+ALTER USER 'root'@'localhost'
+IDENTIFIED BY 'NewStrongPassword';
+```
+
+Stop the safe server.  
+```sh
+sudo pkill mysqld
+```
+
+Start MariaDB normally.  
+```sh
+sudo systemctl start mariadb
+```
 
 ## Reference
 1. [MariaDB docs](https://mariadb.com/docs/server/mariadb-quickstart-guides/installing-mariadb-server-guide)
