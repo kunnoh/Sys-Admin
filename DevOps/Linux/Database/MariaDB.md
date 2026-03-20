@@ -15,9 +15,14 @@ sudo systemctl start mariadb && \
 sudo systemctl status  mariadb
 ```
 
-For security, run security script that comes pre-installed with **MariaDB** to initialize.  
+### Database initialization
 ```sh
-sudo mysql_secure_installation
+sudo mariadb-install-db --user=MySQL --basedir=/usr --datadir=/var/lib/mariadb
+```
+
+Enhance the security of your **MariaDB** installation and establish the **root** password.   
+```sh
+sudo mariadb-secure-installation
 ```
 
 Verify installation by connecting as root:Bash
