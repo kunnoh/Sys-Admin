@@ -19,6 +19,17 @@ Verify:
 git remote -v
 ```
 
+### Github CLI
+#### Login
+```sh
+gh auth login
+```
+
+#### Create repository
+```sh
+gh repo create airplane_mode --public --source=. --remote=origin --push
+```
+
 #### Add branch
 ```sh
 git branch -m main
