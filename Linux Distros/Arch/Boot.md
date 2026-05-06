@@ -1,6 +1,24 @@
 # Boot
-Fix **Arch** boot problem.  
-My system crushed such it could not boot anymore such that the boot partition got corrupted, but the the main system was okay. The main problem was that 
+Fix **Arch** boot problem using **LVM**.  
+System crushed while updating now it could not boot anymore such that the boot partition got corrupted, but the the main system was okay.  
+When booted it says missing firmare.  
+
+## Restore using Chroot
+Use bootble image.  
+Mount **LVM** partition.  
+```sh
+modprobe dm-mod
+vgchange -ay
+mount -o subvol=@ /dev/ArchinstallVg/root /mnt
+mount /dev/sda1 /mnt/noot
+arch-chroot /mnt
+```
+
+### Reinstall Firmware from cache
+```sh
+pacman -U /var/cache/pacman/pkg/linux-17.7.pkg.tar.zst
+```
+
 
 ## Create boot partition
 Boot partition requires **fat32** as **ESP** with atleast 1GB space.  

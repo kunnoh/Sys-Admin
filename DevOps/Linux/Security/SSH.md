@@ -128,6 +128,9 @@ sudo systemctl restart ssh
 
 ## Debugging
 
+## Applications
+### Copy Files
+
 
 ## Reference
 1. [SSH wiki](https://en.wikipedia.org/wiki/Secure_Shell)
