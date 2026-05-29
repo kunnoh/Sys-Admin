@@ -19,7 +19,7 @@
 
 
 ### TWRP
-Install **TWRP** using **odin4** in **Linux**.  
+Install **TWRP** using **odin4** on **Linux**.  
 ```sh
 odin4 -a ~/Downloads/TWRP-3.2.3-TwrpBuilder-j7y17lte-2018-09-13_15-35.tar
 ```

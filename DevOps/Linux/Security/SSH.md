@@ -35,9 +35,9 @@ In cryptography, the **Elliptic Curve Digital Signature Algorithm (ECDSA)** offe
     ssh-keygen -f /path/to/ecdsa_public_key_name.pem -i -m PKCS8 > /path/to/public_key_openssh.pub
     ``` 
 
-5. Change permission to read for owner.  
+5. Change permission to read & write for owner.  
     ```sh
-    chmod 400 /path/to/ecdsa_private_key_name.pem
+    chmod 600 /path/to/ecdsa_private_key_name.pem
     ```  
 
 ### Generate ECDSA key pair using ssh-keygen
@@ -73,8 +73,8 @@ mkdir ~/.ssh && chmod 600 -R ~/.ssh/
 
 ## SSH configurations and hardening  
 **Config files:**
-- `etc/ssh/sshd_config` - SSH server. How others connect to you.
-- `etc/ssh/ssh_config`  - SSH client. How you connect to others.
+- `/etc/ssh/sshd_config` - SSH server. How others connect to you.
+- `/etc/ssh/ssh_config`  - SSH client. How you connect to others.
 
 
 ### ssh_config

@@ -1,9 +1,9 @@
 # Boot
-Fix **Arch** boot problem using **LVM**.  
 System crushed while updating now it could not boot anymore such that the boot partition got corrupted, but the the main system was okay.  
 When booted it says missing firmare.  
 
 ## Restore using Chroot
+Fix **Arch** boot problem using **LVM**.  
 Use bootble image.  
 Mount **LVM** partition.  
 ```sh
