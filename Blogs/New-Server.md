@@ -46,7 +46,7 @@ Add `~/.ssh/dev_ed25519.pub` to `~/.ssh/authorized_keys` on the server so you ca
 ```sh
 ssh-copy-id ops@192.168.1.10
 ```
-**Altanetively:**
+**Alternatively:**
 Copy **public key** from the local machine to `~/.ssh/authorized_keys` on the server.  
 
 ### Use Key to Signin
